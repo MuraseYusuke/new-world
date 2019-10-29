@@ -16,7 +16,7 @@ import {
 import {
   windowType
 } from './../../types/windowType';
-import YouTube from '../organisms/YouTube';
+import { withRouter } from "react-router";
 
 class Home extends React.Component {
   constructor(props) {
@@ -51,6 +51,11 @@ class Home extends React.Component {
     e.preventDefault();
 
     e.returnValue = '未保存のデータがありますが、本当に閉じますか？'
+  }
+
+  onAddClick() {
+    console.log(this.props.history);
+    this.props.history.push("/ChangeProfile");
   }
 
   render() {
@@ -98,7 +103,9 @@ class Home extends React.Component {
                     width={data.width}
                     height={data.height}
                     key={`${data.type}_${i}`}
-                  />
+                  >
+
+                  </Window>
                 case windowType.profile:
                   return <Window
                     style={{
@@ -125,12 +132,13 @@ class Home extends React.Component {
               }
             })
           }
-        <YouTube />
         </GrayLayer>
-        <MenuFab />
+        <MenuFab 
+          onAddClick={() => this.onAddClick()}
+        />
       </div>
     );
   }
 };
 
-export default Home;
+export default withRouter(Home);

@@ -14,6 +14,9 @@ class MenuFab extends React.Component {
         const {
             open,
         } = this.state;
+        const {
+            onAddClick,
+        } = this.props;
         return (
             <div>
                 <Fab
@@ -86,6 +89,7 @@ class MenuFab extends React.Component {
                 </Fab>
                 <Fab
                     onClick={() => {
+                        onAddClick();
                     }}
                     size={"small"}
                     style={{
