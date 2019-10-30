@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import Login from './components/pages/Login';
 import Home from './components/pages/Home';

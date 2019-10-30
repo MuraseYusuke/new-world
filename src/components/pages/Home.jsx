@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import './../../App.css';
 import backImg from './../../assets/background.jpg';
 import GrayLayer from './../molecules/GrayLayer';
@@ -11,12 +11,14 @@ import MenuFab from './../molecules/MenuFab';
 import firebase from './../../firebase';
 import MyAccount from '../organisms/MyAccount';
 import {
-  Button
+  Button,
+  TextField
 } from '@material-ui/core';
 import {
   windowType
 } from './../../types/windowType';
 import { withRouter } from "react-router";
+import Iframe from 'react-iframe';
 
 class Home extends React.Component {
   constructor(props) {
@@ -132,6 +134,25 @@ class Home extends React.Component {
               }
             })
           }
+          <Window
+            width={500}
+            height={500}
+          >
+            <Iframe
+              url="https://voguegirl.jp/horoscope/shiitake/gemini/"
+              width={"500px"}
+              height={"500px"}
+              id="id"
+              position="relative"
+            />
+          </Window>
+          <Window>
+            <TextField 
+              onChange={(e) => {
+                console.log(e.target.value);
+              }}
+            />
+          </Window>
         </GrayLayer>
         <MenuFab 
           onAddClick={() => this.onAddClick()}

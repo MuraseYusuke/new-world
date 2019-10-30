@@ -8,14 +8,11 @@ class ChangeProfile extends React.Component{
             <div>
                 {"何にもないよ"}
                 <Iframe 
-                    url="https://www.youtube.com/"
+                    url="https://voguegirl.jp/horoscope/shiitake/gemini/"
                     width="500px"
                     height="500px"
                     id="id"
                     position="relative"
-                />
-                <iframe 
-                
                 />
             </div>
         )
