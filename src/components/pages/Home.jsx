@@ -135,8 +135,9 @@ class Home extends React.Component {
             })
           }
           <Window
-            width={500}
-            height={500}
+            width={510}
+            height={510}
+            enableResize={false}
           >
             <Iframe
               url="https://voguegirl.jp/horoscope/shiitake/gemini/"
@@ -146,12 +147,29 @@ class Home extends React.Component {
               position="relative"
             />
           </Window>
-          <Window>
-            <TextField 
-              onChange={(e) => {
-                console.log(e.target.value);
-              }}
+          <Window
+            width={510}
+            height={510}
+            enableResize={false}
+          >
+            <Iframe
+              url="https://www.youtube.com/embed/_8dVRByLvnQ"
+              width={"500px"}
+              height={"500px"}
+              id="id"
+              position="relative"
             />
+          </Window>
+          <Window>
+            <form noValidate autoComplete="off">
+              <TextField
+                id="filled-basic"
+                margin="normal"
+                onChange={(e) => {
+                  console.log(e);
+                }}
+              />
+            </form>
           </Window>
         </GrayLayer>
         <MenuFab 
