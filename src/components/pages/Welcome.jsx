@@ -1,7 +1,8 @@
 import React from 'react';
-import { BkColor } from './Login';
 import styled from 'styled-components';
 import FadeAnimation from './../atoms/Fade';
+import GifPlayer from 'react-gif-player';
+import loading from './../../assets/loading.gif';
 
 class WelcomePage extends React.Component {
     constructor(props){
@@ -18,7 +19,7 @@ class WelcomePage extends React.Component {
     componentDidMount() {
         this.welcomeId = setTimeout(() => {
             // this.props.history.push('/');
-        }, 2000);
+        }, 8000);
     }
 
     componentWillUnmount(){
@@ -39,16 +40,11 @@ class WelcomePage extends React.Component {
 
     return (
         <BkColor>
-            <FadeAnimation
-                entered={open}
-            >
-                <Discription>{"ようこそ"}</Discription>
-            </FadeAnimation>
-            <FadeAnimation
-                entered={newWorld}
-            >
-                <Discription>{"あたらしいセカイへ"}</Discription>
-            </FadeAnimation>
+            <GifContainer>
+            <GifPlayer 
+                gif={loading}
+            />
+            </GifContainer>
         </BkColor>
     );
   }
@@ -64,3 +60,13 @@ const Discription = styled.p`
     padding-top: 50px;
 `
 
+export const BkColor = styled.div`
+  width: 100vw;
+  height: 100vh;
+  margin: auto;
+  background-color: #000;
+`
+
+export const GifContainer = styled.div`
+    text-align: center;
+`
