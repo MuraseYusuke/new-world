@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import FadeAnimation from './../atoms/Fade';
-import GifPlayer from 'react-gif-player';
-import loading from './../../assets/loading.gif';
+// import GifPlayer from 'react-gif-player';
+// import loading from './../../assets/loading.gif';
 
 class WelcomePage extends React.Component {
     constructor(props){
@@ -34,19 +34,21 @@ class WelcomePage extends React.Component {
     } = this.state;
 
     console.log({
-        open,
-        newWorld,
-    })
+          open,
+          newWorld,
+      })
 
-    return (
-        <BkColor>
-            <GifContainer>
-            <GifPlayer 
-                gif={loading}
-            />
-            </GifContainer>
-        </BkColor>
-    );
+      return (
+          <BkColor>
+              <GifContainer>
+                  {
+                    //   <GifPlayer
+                    //       gif={loading}
+                    //   />
+                  }
+              </GifContainer>
+          </BkColor>
+      );
   }
 };
 

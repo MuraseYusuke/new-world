@@ -19,6 +19,7 @@ import {
 } from './../../types/windowType';
 import { withRouter } from "react-router";
 import Iframe from 'react-iframe';
+import ItemList from '../molecules/List';
 
 class Home extends React.Component {
   constructor(props) {
@@ -134,32 +135,45 @@ class Home extends React.Component {
               }
             })
           }
-          <Window
-            width={510}
-            height={510}
-            enableResize={false}
-          >
-            <Iframe
-              url="https://voguegirl.jp/horoscope/shiitake/gemini/"
-              width={"500px"}
-              height={"500px"}
-              id="id"
-              position="relative"
-            />
-          </Window>
-          <Window
-            width={510}
-            height={510}
-            enableResize={false}
-          >
-            <Iframe
-              url="https://www.youtube.com/embed/_8dVRByLvnQ"
-              width={"500px"}
-              height={"500px"}
-              id="id"
-              position="relative"
-            />
-          </Window>
+          {
+          // <Window
+          //   width={510}
+          //   height={510}
+          //   enableResize={false}
+          // >
+          //   <Iframe
+          //     url="https://voguegirl.jp/horoscope/shiitake/gemini/"
+          //     width={"500px"}
+          //     height={"500px"}
+          //     id="id"
+          //     position="relative"
+          //   />
+          // </Window>
+          }
+          {
+            <Window
+              width={510}
+              height={510}
+              enableResize={false}
+            >
+              <ItemList />
+            </Window>
+          }
+          {
+          // <Window
+          //   width={510}
+          //   height={510}
+          //   enableResize={false}
+          // >
+          //   <Iframe
+          //     url="https://www.youtube.com/embed/_8dVRByLvnQ"
+          //     width={"500px"}
+          //     height={"500px"}
+          //     id="id"
+          //     position="relative"
+          //   />
+          // </Window>
+          }
           <Window>
             <form noValidate autoComplete="off">
               <TextField
