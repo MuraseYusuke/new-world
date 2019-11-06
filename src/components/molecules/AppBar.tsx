@@ -1,10 +1,12 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { default as MAppBar} from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
+import { default as MAppBar } from '@material-ui/core/AppBar';
+import {
+  Toolbar,
+  Typography,
+  Button,
+  IconButton,
+} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { theme } from './../theme';
 import { compose, defaultProps } from 'recompose';
@@ -26,10 +28,11 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {
   title: string,
   buttonLabel: string,
+  onMenuClick: () => void,
 }
 
 const AppBar = compose<Props, Props>(
-  defaultProps<Props>({
+  defaultProps<Partial<Props>>({
     title: "NEW WORLD",
     buttonLabel: "ログイン"
   })
@@ -40,6 +43,7 @@ const AppBar = compose<Props, Props>(
     const {
       title,
       buttonLabel,
+      onMenuClick,
     } = props;
 
     return (
@@ -51,7 +55,15 @@ const AppBar = compose<Props, Props>(
           }}
         >
           <Toolbar>
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+              onClick={() => {
+                onMenuClick();
+              }}
+            >
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>
