@@ -7,7 +7,10 @@ import {
   Button,
   IconButton,
 } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import { 
+  Menu as MenuIcon,
+  Notifications as AlermIcon 
+} from '@material-ui/icons';
 import { theme } from './../theme';
 import { compose, defaultProps } from 'recompose';
 
@@ -69,6 +72,16 @@ const AppBar = compose<Props, Props>(
             <Typography variant="h6" className={classes.title}>
               {title}
             </Typography>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              onClick={() => {
+                alert("tst");
+              }}
+            >
+              <AlermIcon />
+            </IconButton>
             <Button color="inherit">{buttonLabel}</Button>
           </Toolbar>
         </MAppBar>

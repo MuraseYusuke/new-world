@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import FadeAnimation from './../atoms/Fade';
+// import FadeAnimation from './../atoms/Fade';
 // import GifPlayer from 'react-gif-player';
 // import loading from './../../assets/loading.gif';
 
@@ -54,13 +54,13 @@ class WelcomePage extends React.Component {
 
 export default WelcomePage;
 
-const Discription = styled.p`
-    color: white;
-    font-size: 100px;
-    margin: 0px;
-    text-align: center;
-    padding-top: 50px;
-`
+// const Discription = styled.p`
+//     color: white;
+//     font-size: 100px;
+//     margin: 0px;
+//     text-align: center;
+//     padding-top: 50px;
+// `
 
 export const BkColor = styled.div`
   width: 100vw;
