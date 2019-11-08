@@ -55,7 +55,8 @@ export default function SignIn(props) {
     const classes = useStyles();
 
     const {
-        onClick
+        onLogin,
+        onSignUp
     } = props;
 
     const [mail, mailChange] = useState("");
@@ -112,9 +113,7 @@ export default function SignIn(props) {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
-                        onClick={() => {
-                            onClick(mail, password);
-                        }}
+                        onClick={() => onLogin(mail, password)}
                     >
                         {"Sign In"}
                     </Button>
