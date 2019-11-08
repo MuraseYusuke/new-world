@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import App from "./App";
 import Login from "./components/pages/Login";
 import WelcomePage from './components/pages/Welcome';
 import ChangeProfile from './components/pages/ChangeProfile';

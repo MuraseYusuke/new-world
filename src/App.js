@@ -1,14 +1,7 @@
 import * as React from 'react';
-import firebase from './firebase';
-import { withRouter } from "react-router";
 import Routes from './Routes';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    }
-  }
 
   render() {
     console.log("app.jsx");
@@ -21,4 +14,4 @@ class App extends React.Component {
 };
 
 
-export default withRouter(App);
+export default App;
