@@ -8,7 +8,7 @@ import MailButton from './../atoms/buttons/MailButton';
 // import Miyasako from './../../assets/miyasako.jpg';
 import Profile from './../organisms/Profile';
 import MenuFab from './../molecules/MenuFab';
-import firebase from './../../firebase';
+import {auth, firestore} from './../../firebase';
 import MyAccount from '../organisms/MyAccount';
 import {
   Button,
@@ -41,8 +41,8 @@ class Test extends React.Component {
   }
 
   async componentDidMount() {
-    const user = firebase.auth().currentUser;
-    const db = firebase.firestore();
+    const user = auth().currentUser;
+    const db = firestore();
     const docRef = db.collection("user_infomation").doc(`${user.email}`);
 
     const doc = await docRef.get();
@@ -85,7 +85,7 @@ class Test extends React.Component {
               top: 0,
               right: 0,
             }}
-            onClick={() => firebase.auth().signOut()}
+            onClick={() => auth().signOut()}
             variant="contained"
             color="primary"
           >

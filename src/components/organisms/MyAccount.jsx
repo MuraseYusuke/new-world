@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import firebase from 'firebase';
+import { auth } from 'firebase';
 
 const MyAccount = () => {
-    let user = firebase.auth().currentUser;
+    let user = auth().currentUser;
     return (
         <SEditName>
             <input type="text" placeholder="userName" style={{ borderRadius: "10px" }} />

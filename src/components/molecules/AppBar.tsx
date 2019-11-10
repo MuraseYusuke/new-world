@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     menuButton: {
       marginRight: theme.spacing(2),
+      cursor: "pointer"
     },
     title: {
       flexGrow: 1,
@@ -32,12 +33,13 @@ interface Props {
   title: string,
   buttonLabel: string,
   onMenuClick: () => void,
+  onButtonClick: () => void,
 }
 
 const AppBar = compose<Props, Props>(
   defaultProps<Partial<Props>>({
     title: "NEW WORLD",
-    buttonLabel: "ログイン"
+    buttonLabel: "ログアウト"
   })
 )(
   function AppBar(props: Props) {
@@ -47,6 +49,7 @@ const AppBar = compose<Props, Props>(
       title,
       buttonLabel,
       onMenuClick,
+      onButtonClick,
     } = props;
 
     return (
@@ -82,7 +85,14 @@ const AppBar = compose<Props, Props>(
             >
               <AlermIcon />
             </IconButton>
-            <Button color="inherit">{buttonLabel}</Button>
+            <Button
+             color="inherit"
+             onClick={() => {
+               onButtonClick();
+             }}
+            >
+            {buttonLabel}
+            </Button>
           </Toolbar>
         </MAppBar>
       </div>

@@ -38,6 +38,9 @@ class Login extends React.Component {
     })
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
+      console.log({
+        hisotry: this.props.history,
+      })
       this.props.history.push('/Home');
     }catch(error){
       alert(error);

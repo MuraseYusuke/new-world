@@ -56,7 +56,6 @@ export default function SignIn(props) {
 
     const {
         onLogin,
-        onSignUp
     } = props;
 
     const [mail, mailChange] = useState("");
@@ -101,12 +100,10 @@ export default function SignIn(props) {
                             passChange(e.target.value);
                         }}
                     />
-                    {
-                        // <FormControlLabel
-                        //     control={<Checkbox value="remember" color="primary" />}
-                        //     label="Remember me"
-                        // />
-                    }
+                    <FormControlLabel
+                        control={<Checkbox value="remember" color="primary" />}
+                        label="Remember me"
+                    />
                     <Button
                         type="submit"
                         fullWidth
@@ -117,20 +114,18 @@ export default function SignIn(props) {
                     >
                         {"Sign In"}
                     </Button>
-                    {
-                        // <Grid container>
-                        //     <Grid item xs>
-                        //         <Link href="#" variant="body2">
-                        //             {"Forgot password?"}
-                        //         </Link>
-                        //     </Grid>
-                        //     <Grid item>
-                        //         <Link href="#" variant="body2">
-                        //             {"Don't have an account? Sign Up"}
-                        //         </Link>
-                        //     </Grid>
-                        // </Grid>
-                    }
+                    <Grid container>
+                        <Grid item xs>
+                            <Link href="#" variant="body2">
+                                {"Forgot password?"}
+                            </Link>
+                        </Grid>
+                        <Grid item>
+                            <Link href="#" variant="body2">
+                                {"Don't have an account? Sign Up"}
+                            </Link>
+                        </Grid>
+                    </Grid>
                 </form>
             </div>
             <Box mt={8}>

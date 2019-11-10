@@ -8,7 +8,7 @@ class ChangeProfile extends React.Component{
             <div>
                 {"何にもないよ"}
                 <Iframe 
-                    url="https://voguegirl.jp/horoscope/shiitake/gemini/"
+                    url="https://voguegirl.jp/horoscope/shiitake/"
                     width="500px"
                     height="500px"
                     id="id"
