@@ -26,6 +26,7 @@ interface Props extends RouteComponentProps {
 
 interface State {
     menuOpen: boolean,
+    userData: any,
 }
 
 enum IconType {
@@ -33,14 +34,23 @@ enum IconType {
     Chat,
     Inbox,
     Mail,
+    LogOut,
 }
 
 class Template extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            menuOpen: false
+            menuOpen: false,
+            userData: undefined,
         }
+    }
+
+    componentDidMount(){
+        firebase.auth().onAuthStateChanged(userData => {
+            console.log({userData});
+            this.setState({ userData });
+        })
     }
 
     render() {
@@ -49,7 +59,8 @@ class Template extends React.Component<Props, State> {
             children
         } = this.props;
         const {
-            menuOpen
+            menuOpen,
+            userData,
         } = this.state;
 
         const ListItemList: ListItemListProps = {
@@ -65,11 +76,20 @@ class Template extends React.Component<Props, State> {
                     title: 'Chat',
                     iconType: IconType.Chat,
                     onClick: () => {
-                        history.push('/Chat');
+                        history.push('/ChatRoom');
                     }
                 }
             ],
-            sub: []
+            sub: [
+                {
+                    title: 'LogOut',
+                    iconType: IconType.LogOut,
+                    onClick: () => {
+                        firebase.auth().signOut();
+                        history.push('/');
+                    }
+                }
+            ]
         }
 
         return (
