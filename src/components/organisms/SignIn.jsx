@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
     },
     avatar: {
         margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
+        // backgroundColor: theme.palette.secondary.main,
     },
     form: {
         width: '100%', // Fix IE 11 issue.
@@ -63,10 +63,16 @@ export default function SignIn(props) {
     const [password, passChange] = useState("");
 
     return (
-        <Container component="main" maxWidth="xs">
+        <Container 
+        component="main" 
+        maxWidth="xs"
+        >
             <CssBaseline />
             <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
+                <Avatar 
+                src={"https://firebasestorage.googleapis.com/v0/b/new-world-2b3fc.appspot.com/o/817-300x300.jpg?alt=media&token=3793df72-90ca-4288-8df1-bf459c88385f"} 
+                className={classes.avatar}
+                >
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
@@ -86,6 +92,11 @@ export default function SignIn(props) {
                         onChange={(e) => {
                             mailChange(e.target.value);
                         }}
+                        onKeyPress={(e) => {
+                            if(e.key === "Enter"){
+                                onLogin(mail, password)
+                            }
+                        }}
                     />
                     <TextField
                         variant="outlined"
@@ -99,6 +110,11 @@ export default function SignIn(props) {
                         autoComplete="current-password"
                         onChange={(e) => {
                             passChange(e.target.value);
+                        }}
+                        onKeyPress={(e) => {
+                            if(e.key === "Enter"){
+                                onLogin(mail, password)
+                            }
                         }}
                     />
                     <FormControlLabel

@@ -66,14 +66,14 @@ class Template extends React.Component<Props, State> {
         const ListItemList: ListItemListProps = {
             main: [
                 {
-                    title: 'Home',
+                    title: 'ホーム',
                     iconType: IconType.Home,
                     onClick: () => {
                         history.push('/Home');
                     }
                 },
                 {
-                    title: 'Chat',
+                    title: 'チャット',
                     iconType: IconType.Chat,
                     onClick: () => {
                         history.push('/ChatRoom');
@@ -82,7 +82,7 @@ class Template extends React.Component<Props, State> {
             ],
             sub: [
                 {
-                    title: 'LogOut',
+                    title: 'ログアウト',
                     iconType: IconType.LogOut,
                     onClick: () => {
                         firebase.auth().signOut();
