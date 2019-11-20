@@ -115,13 +115,14 @@ class Chat extends React.Component<Props, State> {
                 >
                     <TextField
                         id={"outlined-multiline-static"}
-                        label={"Multiline"}
+                        label={"コメントを入力"}
                         multiline
                         rows={"4"}
                         margin={"normal"}
                         variant={"outlined"}
                         style={{
-                            flexGrow: 1
+                            flexGrow: 1,
+                            cursor: "text"
                         }}
                         onChange={(e) => {
                             this.setState({ text: e.target.value });

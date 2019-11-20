@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { default as MAppBar } from '@material-ui/core/AppBar';
 import {
@@ -6,97 +6,116 @@ import {
   Typography,
   Button,
   IconButton,
+  Avatar,
 } from '@material-ui/core';
-import { 
+import {
   Menu as MenuIcon,
-  Notifications as AlermIcon 
+  Notifications as AlermIcon,
 } from '@material-ui/icons';
 import { theme } from './../theme';
-import { compose, defaultProps } from 'recompose';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      flexGrow: 1,
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-      cursor: "pointer"
-    },
-    title: {
-      flexGrow: 1,
-    },
-  }),
-);
+import firebase from '../../firebase';
+import { compose, defaultProps, lifecycle } from 'recompose';
 
 interface Props {
   title: string,
   buttonLabel: string,
   onMenuClick: () => void,
-  onButtonClick: () => void,
 }
 
 const AppBar = compose<Props, Props>(
   defaultProps<Partial<Props>>({
     title: "NEW WORLD",
     buttonLabel: "ログアウト"
-  })
+  }),
 )(
-  function AppBar(props: Props) {
-    const classes = useStyles(theme);
+  class AppBar extends React.Component<Props, {
+    userData: any,
+  }> {
+    constructor(props: Props) {
+      super(props);
+      this.state = {
+        userData: undefined
+      }
+    }
 
-    const {
-      title,
-      buttonLabel,
-      onMenuClick,
-      onButtonClick,
-    } = props;
+    componentDidMount() {
+      firebase.auth().onAuthStateChanged(userData => {
+        this.setState({ userData });
+      });
+    }
 
-    return (
-      <div className={classes.root}>
-        <MAppBar
-          position="static"
+    render() {
+      const {
+        title,
+        buttonLabel,
+        onMenuClick,
+      } = this.props;
+      const {
+        userData
+      } = this.state;
+
+      console.log({
+        userData
+      });
+
+      return (
+        <div
           style={{
-            backgroundColor: theme.primaryColor,
+            flexGrow: 1,
+
           }}
         >
-          <Toolbar>
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="menu"
-              onClick={() => {
-                onMenuClick();
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              {title}
-            </Typography>
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              onClick={() => {
-                alert("tst");
-              }}
-            >
-              <AlermIcon />
-            </IconButton>
-            <Button
-             color="inherit"
-             onClick={() => {
-               onButtonClick();
-             }}
-            >
-            {buttonLabel}
-            </Button>
-          </Toolbar>
-        </MAppBar>
-      </div>
-    );
+          <MAppBar
+            position="static"
+            style={{
+              backgroundColor: theme.primaryColor,
+            }}
+          >
+            <Toolbar>
+              <IconButton
+                style={{
+                  cursor: "pointer"
+                }}
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                onClick={() => {
+                  onMenuClick();
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography
+                variant="h6"
+                style={{
+                  flexGrow: 1,
+                }}
+              >
+                {title}
+              </Typography>
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                onClick={() => {
+                  alert("tst");
+                }}
+              >
+                <AlermIcon />
+              </IconButton>
+              <Button
+                color="inherit"
+                onClick={() => {
+                }}
+                disableRipple={true}
+              >
+                <Avatar alt="user profile" src={userData && userData.photoURL} />
+              </Button>
+            </Toolbar>
+          </MAppBar>
+        </div>
+      );
+    }
   }
 );
 

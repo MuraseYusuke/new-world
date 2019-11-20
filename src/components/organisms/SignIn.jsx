@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import styled from 'styled-components';
 
 function Copyright() {
     return (
@@ -105,7 +106,7 @@ export default function SignIn(props) {
                         label="Remember me"
                     />
                     <Button
-                        type="submit"
+                        type="button"
                         fullWidth
                         variant="contained"
                         color="primary"
@@ -114,18 +115,14 @@ export default function SignIn(props) {
                     >
                         {"Sign In"}
                     </Button>
-                    <Grid container>
-                        <Grid item xs>
-                            <Link href="#" variant="body2">
-                                {"Forgot password?"}
-                            </Link>
-                        </Grid>
-                        <Grid item>
-                            <Link href="#" variant="body2">
-                                {"Don't have an account? Sign Up"}
-                            </Link>
-                        </Grid>
-                    </Grid>
+                    <LinksContainer>
+                        <Link href="#" variant="body2">
+                            {"Forgot password?"}
+                        </Link>
+                        <Link href="#" variant="body2">
+                            {"Don't have an account? Sign Up"}
+                        </Link>
+                    </LinksContainer>
                 </form>
             </div>
             <Box mt={8}>
@@ -134,3 +131,9 @@ export default function SignIn(props) {
         </Container>
     );
 }
+
+const LinksContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;

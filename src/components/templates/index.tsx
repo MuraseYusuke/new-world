@@ -108,10 +108,6 @@ class Template extends React.Component<Props, State> {
                         onMenuClick={() => {
                             this.setState({ menuOpen: !menuOpen });
                         }}
-                        onButtonClick={() => {
-                            firebase.auth().signOut();
-                            this.props.history.push('/');
-                        }}
                     />
                     {children}
                     <SwipeableDrawer
