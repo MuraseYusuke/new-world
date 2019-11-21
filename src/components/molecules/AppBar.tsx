@@ -7,6 +7,9 @@ import {
   Button,
   IconButton,
   Avatar,
+  Badge,
+  Paper,
+  Popover,
 } from '@material-ui/core';
 import {
   Menu as MenuIcon,
@@ -30,11 +33,13 @@ const AppBar = compose<Props, Props>(
 )(
   class AppBar extends React.Component<Props, {
     userData: any,
+    open: boolean,
   }> {
     constructor(props: Props) {
       super(props);
       this.state = {
-        userData: undefined
+        userData: undefined,
+        open: false,
       }
     }
 
@@ -51,7 +56,8 @@ const AppBar = compose<Props, Props>(
         onMenuClick,
       } = this.props;
       const {
-        userData
+        userData,
+        open,
       } = this.state;
 
       console.log({
@@ -101,16 +107,36 @@ const AppBar = compose<Props, Props>(
                   alert("tst");
                 }}
               >
-                <AlermIcon />
+                <Badge
+                  style={{
+                    margin: 4,
+                  }}
+                  color={"primary"}
+                  variant={"dot"}
+                  invisible={false}
+                >
+                  <AlermIcon />
+                </Badge>
               </IconButton>
               <Button
                 color="inherit"
                 onClick={() => {
+                  this.setState({ open: true });
                 }}
                 disableRipple={true}
               >
                 <Avatar alt="user profile" src={userData && userData.photoURL} />
               </Button>
+              <Popover
+                open={open}
+                onClose={() => {
+                  this.setState({ open: false });
+                }}
+              >
+                <Paper>
+                  {"test"}
+                </Paper>
+              </Popover>
             </Toolbar>
           </MAppBar>
         </div>
