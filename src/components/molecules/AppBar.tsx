@@ -10,10 +10,16 @@ import {
   Badge,
   Paper,
   Popover,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Divider,
 } from '@material-ui/core';
 import {
   Menu as MenuIcon,
   Notifications as AlermIcon,
+  Chat as ChatIcon,
 } from '@material-ui/icons';
 import { theme } from './../theme';
 import firebase from '../../firebase';
@@ -68,7 +74,6 @@ const AppBar = compose<Props, Props>(
         <div
           style={{
             flexGrow: 1,
-
           }}
         >
           <MAppBar
@@ -133,9 +138,22 @@ const AppBar = compose<Props, Props>(
                   this.setState({ open: false });
                 }}
               >
-                <Paper>
-                  {"test"}
-                </Paper>
+                  <List>
+                  <ListItemText primary={userData && userData.displayName} />
+                  <ListItemText primary={userData && userData.email} />
+                  <Divider />
+                  <ListItem
+                                button
+                                key={"test"}
+                                onClick={() => {
+                                }}
+                            >
+                                <ListItemIcon>
+                                <ChatIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"test"} />
+                            </ListItem>
+                  </List>
               </Popover>
             </Toolbar>
           </MAppBar>

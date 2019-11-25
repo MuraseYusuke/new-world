@@ -71,6 +71,7 @@ class Chat extends React.Component<Props, State> {
     }
 
     componentWillReceiveProps(nextProps: Props, nextState: State){
+
     }
 
     render() {
@@ -82,8 +83,17 @@ class Chat extends React.Component<Props, State> {
 
         return (
             <Template>
+                <div
+                    style={{
+                        overflow: "auto"
+                    }}
+                >
                 {
-                    <List>
+                    <List
+                        style={{
+                            maxHeight: "calc(100% - 210px)",
+                        }}
+                    >
                         {
                             chatLog && chatLog.map((d, index) => {
                                 return (
@@ -101,6 +111,7 @@ class Chat extends React.Component<Props, State> {
                         }
                     </List>
                 }
+                </div>
                 <Paper
                     style={{
                         display: "flex",
@@ -114,10 +125,10 @@ class Chat extends React.Component<Props, State> {
                     }}
                 >
                     <TextField
-                        id={"outlined-multiline-static"}
+                        id={"outlined-multiline-flexible"}
                         label={"コメントを入力"}
                         multiline
-                        rows={"4"}
+                        rowsMax={"4"}
                         margin={"normal"}
                         variant={"outlined"}
                         style={{
@@ -133,10 +144,6 @@ class Chat extends React.Component<Props, State> {
                             height: 48,
                         }}
                         onClick={() => {
-                            console.log({
-                                userData: userData.displayName,
-                                text,
-                            });
                             this.setData([...chatLog], { name: userData.displayName, text });
                             this.setState({
                                 chatLog: [...chatLog, { name: userData.displayName, text }]
