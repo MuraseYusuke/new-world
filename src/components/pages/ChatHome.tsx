@@ -18,10 +18,10 @@ import MenuFab from './../molecules/MenuFab';
 
 
 interface Props extends RouteComponentProps {
-
 }
 
 interface State {
+    userData: any,
 }
 
 interface ChatValue {
@@ -33,38 +33,65 @@ class ChatHome extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-
+            userData: undefined
         }
     }
 
     async getData() {
-        let room = "test";
-        const db = firebase.firestore();
-        firebase.auth().onAuthStateChanged(userData => {
-            const userAuth = db.collection("user_information")
-        });
-        const docRef = db.collection("chat");
+        console.log("test");
+        // let room = "test";
+        // const db = firebase.firestore();
 
-        console.log({
+        // if (this.props.userData) {
+        //     const userRef = await db.collection("user_information").doc(`${this.props.userData.email}`);
+        //     console.log({ userRef });
+        //     if (userRef) {
+        //         let docs = await userRef.get();
+        //         let data
+        //         console.log({
+        //             docs,
+        //         })
+        //     }
+        // }
+        // const docRef = db.collection("chat");
 
-        })
-        docRef.get().then((snapShot) => {
-            console.log({
-                snapShot,
-                data: snapShot.docs,
-                id: snapShot.docs[0].id,
-            });
-            snapShot.forEach((doc) => {
-                // console.log({ doc: doc.id, data: doc.data() });
-            });
-        });
+        // docRef.get().then((snapShot) => {
+        //     snapShot.forEach((doc) => {
+        //         // console.log({ doc: doc.id, data: doc.data() });
+        //     });
+        // });
     }
 
     componentDidMount() {
-        this.getData();
+        firebase.auth().onAuthStateChanged(userData => {
+            this.setState({ userData }, async () => {
+                const db = firebase.firestore();
+                const userRef = db.collection("user_information").doc(`${this.state.userData.email}`);
+                let docs = await userRef.get();
+                let data = docs.data();
+                if(data){
+                    let chatAuth = data.chatAuth;
+                    const chatRef = db.collection("chat").doc();
+                    let roomDocs = await chatRef.get();
+                    let roomIds = roomDocs.id;
+                    console.log({
+                        roomIds,
+                    })
+                }
+            });
+        });
     }
 
     componentWillReceiveProps(nextProps: Props, nextState: State){
+        if(nextState.userData){
+            if(nextState.userData !== this.state.userData){
+                console.log({
+                    test: "tese"
+                });
+                // this.getData();
+            }
+        }
+
     }
 
     render() {

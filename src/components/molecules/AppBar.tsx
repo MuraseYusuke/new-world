@@ -66,10 +66,6 @@ const AppBar = compose<Props, Props>(
         open,
       } = this.state;
 
-      console.log({
-        userData
-      });
-
       return (
         <>
         <div

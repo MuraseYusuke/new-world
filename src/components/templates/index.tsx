@@ -46,9 +46,8 @@ class Template extends React.Component<Props, State> {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         firebase.auth().onAuthStateChanged(userData => {
-            console.log({userData});
             this.setState({ userData });
         })
     }
@@ -75,7 +74,7 @@ class Template extends React.Component<Props, State> {
                 {
                     title: 'チャット',
                     iconType: IconType.Chat,
-                    onClick: () => {
+                    onClick: (state) => {
                         history.push('/ChatHome');
                     }
                 }
@@ -120,9 +119,14 @@ class Template extends React.Component<Props, State> {
                             this.setState({ menuOpen: false });
                         }}
                     >
-                        <FullList
-                            ListItemList={ListItemList}
-                        />
+                        {
+                            userData ?
+                                <FullList
+                                    ListItemList={ListItemList}
+                                />
+                                :
+                                null
+                        }
                     </SwipeableDrawer>
                 </GrayLayer>
             </div>
@@ -138,7 +142,7 @@ interface ListItemListProps {
 interface ListItems {
     title: string,
     iconType: IconType,
-    onClick: () => void,
+    onClick: (option?: any) => void,
 }
 
 interface FullListProps {
