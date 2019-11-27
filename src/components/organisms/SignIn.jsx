@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import styled from 'styled-components';
+import theme from './../theme';
 
 function Copyright() {
     return (
@@ -57,6 +58,7 @@ export default function SignIn(props) {
 
     const {
         onLogin,
+        error,
     } = props;
 
     const [mail, mailChange] = useState("");
@@ -121,6 +123,7 @@ export default function SignIn(props) {
                         control={<Checkbox value="remember" color="primary" />}
                         label="Remember me"
                     />
+                    <div style={{ color: theme.errorColor, fontWeight: "bold" }} >{error && error}</div>
                     <Button
                         type="button"
                         fullWidth

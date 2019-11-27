@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { default as MAppBar } from '@material-ui/core/AppBar';
 import {
   Toolbar,
@@ -21,7 +21,7 @@ import {
   Notifications as AlermIcon,
   Chat as ChatIcon,
 } from '@material-ui/icons';
-import { theme } from './../theme';
+import theme from './../theme';
 import firebase from '../../firebase';
 import { compose, defaultProps, lifecycle } from 'recompose';
 
@@ -71,9 +71,15 @@ const AppBar = compose<Props, Props>(
       });
 
       return (
+        <>
         <div
           style={{
             flexGrow: 1,
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            zIndex: 100
           }}
         >
           <MAppBar
@@ -158,6 +164,8 @@ const AppBar = compose<Props, Props>(
             </Toolbar>
           </MAppBar>
         </div>
+        <div style={{ width: "100%", height: 50 }} />
+        </>
       );
     }
   }

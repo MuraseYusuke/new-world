@@ -17,6 +17,7 @@ import { withStyles } from '@material-ui/styles';
 import Paper from './../molecules/Paper';
 import { getChatData, setChatData } from './../utils/spreadsheet';
 import firebase from './../../firebase';
+import theme from './../theme';
 
 interface Props extends RouteComponentProps {
 
@@ -29,6 +30,7 @@ interface State {
 }
 
 interface ChatValue {
+    uid: string | number,
     name: string,
     text: string,
 }
@@ -70,10 +72,6 @@ class Chat extends React.Component<Props, State> {
         });
     }
 
-    componentWillReceiveProps(nextProps: Props, nextState: State){
-
-    }
-
     render() {
         const {
             chatLog,
@@ -85,7 +83,8 @@ class Chat extends React.Component<Props, State> {
             <Template>
                 <div
                     style={{
-                        overflow: "auto"
+                        overflow: "auto",
+                        marginBottom: 140,
                     }}
                 >
                 {
@@ -100,11 +99,24 @@ class Chat extends React.Component<Props, State> {
                                     <div
                                         key={index}
                                         style={{
-                                            color: "white"
+                                            color: "white",
+                                            marginRight: 8,
+                                            marginLeft: 8,
+                                            textAlign: (userData && d.uid === userData.uid) ? "right" : "left",
                                         }}
                                     >
-                                        <div>{d.name}</div>
-                                        <div>{d.text}</div>
+                                        <div
+                                            style={{
+                                                display: "inline-block",
+                                                padding: 8,
+                                                border: `1px solid ${theme.pureColor}`,
+                                                borderRadius: 10,
+                                                marginTop: 8,
+                                            }}
+                                        >
+                                            <div style={{ fontSize: 10 }}>{d.name}</div>
+                                            <div>{d.text}</div>
+                                        </div>
                                     </div>
                                 );
                             })
@@ -122,6 +134,7 @@ class Chat extends React.Component<Props, State> {
                         paddingTop: 0,
                         paddingBottom: 0,
                         alignItems: "center",
+                        borderRadius: 0,
                     }}
                 >
                     <TextField
@@ -135,6 +148,7 @@ class Chat extends React.Component<Props, State> {
                             flexGrow: 1,
                             cursor: "text"
                         }}
+                        value={text}
                         onChange={(e) => {
                             this.setState({ text: e.target.value });
                         }}
@@ -142,11 +156,14 @@ class Chat extends React.Component<Props, State> {
                     <IconButton
                         style={{
                             height: 48,
+                            marginTop: 16,
+                            marginBottom: 8,
                         }}
                         onClick={() => {
-                            this.setData([...chatLog], { name: userData.displayName, text });
+                            this.setData([...chatLog], { uid: userData.uid, name: userData.displayName, text });
                             this.setState({
-                                chatLog: [...chatLog, { name: userData.displayName, text }]
+                                chatLog: [...chatLog, { uid: userData.uid, name: userData.displayName, text }],
+                                text: "",
                             });
                         }}
                     >
@@ -154,7 +171,6 @@ class Chat extends React.Component<Props, State> {
                     </IconButton>
                 </Paper>
             </Template>
-
         );
     }
 }

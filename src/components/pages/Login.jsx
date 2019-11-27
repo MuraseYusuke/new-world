@@ -7,6 +7,7 @@ class Login extends React.Component {
   constructor(props){
     super(props);
     this.state = {
+      loginError: "",
     }
 
     this.handleSignUp = this.handleSignUp.bind(this);
@@ -38,20 +39,21 @@ class Login extends React.Component {
     })
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
-      console.log({
-        hisotry: this.props.history,
-      })
       this.props.history.push('/Home');
     }catch(error){
-      alert(error);
+      this.setState({ loginError: "メールアドレスまたはパスワードが違います" })
     }
   }
 
   render() {
+    const {
+      loginError
+    } = this.state;
     return (
       <SignIn
        onLogin={this.handelLogin}
        onSignUp={this.handleSignUp}
+       error={loginError}
       />
     );
   }

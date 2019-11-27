@@ -14,6 +14,8 @@ import { getChatData, setChatData } from './../utils/spreadsheet';
 import firebase from './../../firebase';
 import ImgMediaCard from './../molecules/Card';
 import backImg from './../../assets/background.jpg';
+import MenuFab from './../molecules/MenuFab';
+
 
 interface Props extends RouteComponentProps {
 
@@ -38,11 +40,24 @@ class ChatHome extends React.Component<Props, State> {
     async getData() {
         let room = "test";
         const db = firebase.firestore();
-        const docRef = db.collection("chat").doc(`${room}`);
+        firebase.auth().onAuthStateChanged(userData => {
+            const userAuth = db.collection("user_information")
+        });
+        const docRef = db.collection("chat");
 
-        const doc = await docRef.get();
-        const data = doc.data();
-        data && this.setState({ chatLog: data.chatLog });
+        console.log({
+
+        })
+        docRef.get().then((snapShot) => {
+            console.log({
+                snapShot,
+                data: snapShot.docs,
+                id: snapShot.docs[0].id,
+            });
+            snapShot.forEach((doc) => {
+                // console.log({ doc: doc.id, data: doc.data() });
+            });
+        });
     }
 
     componentDidMount() {
@@ -57,13 +72,18 @@ class ChatHome extends React.Component<Props, State> {
         return (
             <Template>
                 {
-
                     <ImgMediaCard
                         image={backImg}
                         title={"HELLO WORLD"}
                         text={"マニュアル 手引書、取扱説明書。本項で解説。 オートの反対の意味で、手動のこと。 自動車の運転方式の1つ、マニュアルトランスミッション。 カメラでのピントの合わせ方・マニュアルフォーカス。またそれ以外の露出やシャッター速度を、すべて手動で設定する事も指す。"}
                     />
                 }
+                <ImgMediaCard
+                    image={backImg}
+                    title={"HELLO WORLD"}
+                    text={"マニュアル 手引書、取扱説明書。本項で解説。 オートの反対の意味で、手動のこと。 自動車の運転方式の1つ、マニュアルトランスミッション。 カメラでのピントの合わせ方・マニュアルフォーカス。またそれ以外の露出やシャッター速度を、すべて手動で設定する事も指す。"}
+                />
+                <MenuFab />
             </Template>
 
         );

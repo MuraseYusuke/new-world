@@ -76,7 +76,7 @@ class Template extends React.Component<Props, State> {
                     title: 'チャット',
                     iconType: IconType.Chat,
                     onClick: () => {
-                        history.push('/ChatRoom');
+                        history.push('/ChatHome');
                     }
                 }
             ],
@@ -98,6 +98,7 @@ class Template extends React.Component<Props, State> {
                     minHeight: "100vh",
                     backgroundImage: `url(${backImg})`,
                     backgroundSize: "cover",
+
                     zIndex: -2,
                 }}
             >
