@@ -15,51 +15,36 @@ import firebase from './../../firebase';
 import ImgMediaCard from './../molecules/Card';
 import backImg from './../../assets/background.jpg';
 import MenuFab from './../molecules/MenuFab';
-
+import styled from 'styled-components';
 
 interface Props extends RouteComponentProps {
 }
 
 interface State {
-    userData: any,
+    userData: any;
+    chatRooms: RoomValue[];
+}
+
+interface RoomValue {
+    id: string;
+    title: string;
+    description: string;
+    homeImage: string;
 }
 
 interface ChatValue {
-    name: string,
-    text: string,
+    name: string;
+    text: string;
+    uid: string;
 }
 
 class ChatHome extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            userData: undefined
+            userData: undefined,
+            chatRooms: [],
         }
-    }
-
-    async getData() {
-        console.log("test");
-        // let room = "test";
-        // const db = firebase.firestore();
-
-        // if (this.props.userData) {
-        //     const userRef = await db.collection("user_information").doc(`${this.props.userData.email}`);
-        //     console.log({ userRef });
-        //     if (userRef) {
-        //         let docs = await userRef.get();
-        //         let data
-        //         console.log({
-        //             docs,
-        //         })
-        //     }
-        // }
-        // const docRef = db.collection("chat");
-
-        // docRef.get().then((snapShot) => {
-        //     snapShot.forEach((doc) => {
-        //         // console.log({ doc: doc.id, data: doc.data() });
-        //     });
-        // });
     }
 
     componentDidMount() {
@@ -69,53 +54,62 @@ class ChatHome extends React.Component<Props, State> {
                 const userRef = db.collection("user_information").doc(`${this.state.userData.email}`);
                 let docs = await userRef.get();
                 let data = docs.data();
-                if(data){
-                    let chatAuth = data.chatAuth;
-                    const chatRef = db.collection("chat").doc();
+                console.log({
+                    data
+                });
+                if (data) {
+                    let chatAuth: string[] = data.chatAuth;
+                    const chatRef = db.collection("chat");
                     let roomDocs = await chatRef.get();
-                    let roomIds = roomDocs.id;
-                    console.log({
-                        roomIds,
-                    })
+                    let roomIds = roomDocs.docs.map((d) => d.id).filter(d => chatAuth.indexOf(d) !== -1);
+                    let authRoom = roomDocs.docs.filter(d => roomIds.indexOf(d.id) !== -1);
+                    let roomDatas = authRoom.map(d => {
+                        let id = d.id;
+                        let room = d.data();
+                        return {
+                            id,
+                            title: room.title,
+                            description: room.description,
+                            homeImage: room.homeImage,
+                        }
+                    });
+                    this.setState({ chatRooms: roomDatas });
                 }
             });
         });
     }
 
-    componentWillReceiveProps(nextProps: Props, nextState: State){
-        if(nextState.userData){
-            if(nextState.userData !== this.state.userData){
-                console.log({
-                    test: "tese"
-                });
-                // this.getData();
-            }
-        }
-
-    }
-
     render() {
-
+        const {
+            chatRooms,
+        } = this.state;
         return (
             <Template>
+                <RoomContainer>
                 {
-                    <ImgMediaCard
-                        image={backImg}
-                        title={"HELLO WORLD"}
-                        text={"マニュアル 手引書、取扱説明書。本項で解説。 オートの反対の意味で、手動のこと。 自動車の運転方式の1つ、マニュアルトランスミッション。 カメラでのピントの合わせ方・マニュアルフォーカス。またそれ以外の露出やシャッター速度を、すべて手動で設定する事も指す。"}
-                    />
+                    chatRooms && chatRooms.map((d) => (
+                        <ImgMediaCard
+                            image={d.homeImage}
+                            title={d.title}
+                            text={d.description}
+                            onClick={() => {
+                                this.props.history.push({ pathname: "/Chat", state: { docName: d.id }})
+                            }}
+                        />
+                    ))
                 }
-                <ImgMediaCard
-                    image={backImg}
-                    title={"HELLO WORLD"}
-                    text={"マニュアル 手引書、取扱説明書。本項で解説。 オートの反対の意味で、手動のこと。 自動車の運転方式の1つ、マニュアルトランスミッション。 カメラでのピントの合わせ方・マニュアルフォーカス。またそれ以外の露出やシャッター速度を、すべて手動で設定する事も指す。"}
-                />
+                </RoomContainer>
                 <MenuFab />
             </Template>
 
         );
     }
 }
+
+const RoomContainer = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+`;
 
 
 export default withRouter(ChatHome);

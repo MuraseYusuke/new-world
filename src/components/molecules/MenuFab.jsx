@@ -26,8 +26,8 @@ class MenuFab extends React.Component {
                     size={"large"}
                     style={{
                         position: "absolute",
-                        bottom: 22,
-                        right: 45,
+                        bottom: 24,
+                        right: 24,
                         backgroundColor: "rgba(107, 255, 205, 0.3)",
                         border: "2px solid white",
                     }}

@@ -14,6 +14,7 @@ const useStyles = makeStyles({
     margin: "auto",
     marginTop: 16,
     marginBottom: 0,
+    minWidth: 345,
   },
 });
 
@@ -21,6 +22,7 @@ interface Props {
   image: string,
   title: string,
   text: string,
+  onClick: () => void,
 }
 
 export default function ImgMediaCard(props: Props) {
@@ -30,11 +32,14 @@ export default function ImgMediaCard(props: Props) {
     image,
     title,
     text,
+    onClick,
   } = props;
 
   return (
     <Card className={classes.card}>
-      <CardActionArea>
+      <CardActionArea
+        onClick={onClick}
+      >
         <CardMedia
           component="img"
           alt="Contemplative Reptile"

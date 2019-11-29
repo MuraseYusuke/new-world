@@ -20,7 +20,6 @@ import firebase from './../../firebase';
 import theme from './../theme';
 
 interface Props extends RouteComponentProps {
-
 }
 
 interface State {
@@ -46,7 +45,7 @@ class Chat extends React.Component<Props, State> {
     }
 
     async getData() {
-        let room = "test";
+        let room = this.props.location.state.docName;
         const db = firebase.firestore();
         const docRef = db.collection("chat").doc(`${room}`);
 
@@ -56,7 +55,7 @@ class Chat extends React.Component<Props, State> {
     }
 
     async setData(value: ChatValue[], addValue: ChatValue) {
-        let room = "test";
+        let room = this.props.location.state.docName;
         const db = firebase.firestore();
         const docRef = db.collection("chat").doc(`${room}`);
         let updateSingle = docRef.update({ chatLog: [...value, addValue] }).then(data => {
