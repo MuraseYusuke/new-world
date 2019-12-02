@@ -19,7 +19,7 @@ export default function SimpleRating(props: Props){
             name="simple-controlled"
             value={value}
             onChange={(e, ev) => {
-                e.preventDefault();
+                e.stopPropagation();
                 setValue(ev);
                 onClick();
             }}

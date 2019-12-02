@@ -103,7 +103,7 @@ class Chat extends React.Component<Props, State> {
                                             style={{
                                                 display: "inline-block",
                                                 padding: 8,
-                                                border: `1px solid ${theme.pureColor}`,
+                                                border: `1px solid ${theme.color.pureColor}`,
                                                 borderRadius: 10,
                                                 marginTop: 8,
                                             }}

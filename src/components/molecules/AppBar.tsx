@@ -78,7 +78,7 @@ const AppBar = compose<Props, Props>(
           <MAppBar
             position="static"
             style={{
-              backgroundColor: theme.primaryColor,
+              backgroundColor: theme.color.primaryColor,
             }}
           >
             <Toolbar>

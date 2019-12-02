@@ -122,7 +122,7 @@ export default function SignIn(props) {
                         control={<Checkbox value="remember" color="primary" />}
                         label="Remember me"
                     />
-                    <div style={{ color: theme.errorColor, fontWeight: "bold" }} >{error && error}</div>
+                    <div style={{ color: theme.color.errorColor, fontWeight: "bold" }} >{error && error}</div>
                     <Button
                         type="button"
                         fullWidth

@@ -21,6 +21,7 @@ import {
 } from '@material-ui/icons';
 import firebase from '../../firebase';
 import { withRouter, RouteComponentProps } from "react-router";
+import theme from './../theme';
 
 interface Props extends RouteComponentProps {
 }
@@ -63,6 +64,10 @@ class Template extends React.Component<Props, State> {
             menuOpen,
             userData,
         } = this.state;
+
+        console.log({
+            userData
+        })
 
         const ListItemList: ListItemListProps = {
             main: [
@@ -107,11 +112,12 @@ class Template extends React.Component<Props, State> {
         return (
             <div
                 style={{
-                    minHeight: "100vh",
-                    maxHeight: "100vh",
+                    minHeight: "calc(100vh - 50px)",
+                    maxHeight: "calc(100vh - 50px)",
                     backgroundImage: `url(${backImg})`,
                     backgroundSize: "cover",
                     zIndex: -2,
+                    fontFamily: theme.fontFamily,
                 }}
             >
                 <GrayLayer>
