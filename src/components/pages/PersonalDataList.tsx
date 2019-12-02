@@ -12,10 +12,10 @@ interface Props extends RouteComponentProps {
 
 interface State{
     userData: any;
-    personals?: PersonData[];
+    personals?: PersonalDataProps[];
 };
 
-interface PersonData {
+export interface PersonalDataProps {
     id: number;
     age: number;
     name: string;
@@ -80,7 +80,7 @@ class PersonalDataList extends React.Component<Props, State> {
                   text={d.description}
                   image={d.image}
                   onClick={() => {
-                    history.push('/PersonalData');
+                    history.push({ pathname: '/PersonalData', state: { userData: d }});
                   }}
                 />
               );
