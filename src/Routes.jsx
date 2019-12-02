@@ -6,7 +6,9 @@ import Chat from './components/pages/Chat';
 import ChatHome from './components/pages/ChatHome';
 import WelcomePage from './components/pages/Welcome';
 import ChangeProfile from './components/pages/ChangeProfile';
+import PersonalData from './components/pages/Personaldata';
 import NotFound from './components/pages/NotFound';
+
 
 export class Routes extends React.Component {
     render() {
@@ -19,6 +21,7 @@ export class Routes extends React.Component {
                     <Route exact path="/Chat" component={Chat} />
                     <Route exact path="/Welcome" component={WelcomePage} />
                     <Route exact path="/ChangeProfile" component={ChangeProfile} />
+                    <Route exact path="/PersonalData" component={PersonalData} />
                     <Route exact Path="/NotFound" component={NotFound} />
                 </Switch>
             </BrowserRouter>

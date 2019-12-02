@@ -17,6 +17,7 @@ import {
     MoveToInbox as InboxIcon,
     Subject as SubjectIcon,
     Home as HomeIcon,
+    PersonOutline as OPerson
 } from '@material-ui/icons';
 import firebase from '../../firebase';
 import { withRouter, RouteComponentProps } from "react-router";
@@ -34,6 +35,7 @@ enum IconType {
     Chat,
     Inbox,
     Mail,
+    Personal,
     LogOut,
 }
 
@@ -77,6 +79,13 @@ class Template extends React.Component<Props, State> {
                     onClick: (state) => {
                         history.push('/ChatHome');
                     }
+                },
+                {
+                    title: 'パーソナルデータ',
+                    iconType: IconType.Personal,
+                    onClick: () => {
+                        history.push('/PersonalData');
+                    }
                 }
             ],
             sub: [
@@ -97,7 +106,6 @@ class Template extends React.Component<Props, State> {
                     minHeight: "100vh",
                     backgroundImage: `url(${backImg})`,
                     backgroundSize: "cover",
-
                     zIndex: -2,
                 }}
             >
@@ -234,6 +242,8 @@ const ListIcon = (props: ListIconProps) => {
                         return (
                             <ChatIcon />
                         );
+                    case IconType.Personal:
+                        return <OPerson />;
                     default:
                         return <SubjectIcon />;
                 }

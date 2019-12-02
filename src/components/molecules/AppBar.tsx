@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
+import React from 'react';
 import { default as MAppBar } from '@material-ui/core/AppBar';
 import {
   Toolbar,
@@ -8,7 +7,6 @@ import {
   IconButton,
   Avatar,
   Badge,
-  Paper,
   Popover,
   List,
   ListItem,
@@ -23,7 +21,7 @@ import {
 } from '@material-ui/icons';
 import theme from './../theme';
 import firebase from '../../firebase';
-import { compose, defaultProps, lifecycle } from 'recompose';
+import { compose, defaultProps } from 'recompose';
 
 interface Props {
   title: string,
@@ -58,7 +56,6 @@ const AppBar = compose<Props, Props>(
     render() {
       const {
         title,
-        buttonLabel,
         onMenuClick,
       } = this.props;
       const {
@@ -160,7 +157,7 @@ const AppBar = compose<Props, Props>(
             </Toolbar>
           </MAppBar>
         </div>
-        <div style={{ width: "100%", height: 50 }} />
+        <div style={{ width: "100%", height: 56 }} />
         </>
       );
     }

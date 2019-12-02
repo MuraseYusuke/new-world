@@ -2,18 +2,8 @@ import * as React from 'react';
 import './../../App.css';
 import { withRouter, RouteComponentProps } from "react-router";
 import Template from './../templates';
-import {
-    List,
-    ListItem,
-    ListItemIcon,
-    ListItemText,
-    TextField,
-    IconButton,
-} from '@material-ui/core';
-import { getChatData, setChatData } from './../utils/spreadsheet';
 import firebase from './../../firebase';
 import ImgMediaCard from './../molecules/Card';
-import backImg from './../../assets/background.jpg';
 import MenuFab from './../molecules/MenuFab';
 import styled from 'styled-components';
 

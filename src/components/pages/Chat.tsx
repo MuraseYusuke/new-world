@@ -4,18 +4,13 @@ import { withRouter, RouteComponentProps } from "react-router";
 import Template from './../templates';
 import {
     List,
-    ListItem,
-    ListItemIcon,
-    ListItemText,
     TextField,
     IconButton,
 } from '@material-ui/core';
 import {
     Send
 } from '@material-ui/icons';
-import { withStyles } from '@material-ui/styles';
 import Paper from './../molecules/Paper';
-import { getChatData, setChatData } from './../utils/spreadsheet';
 import firebase from './../../firebase';
 import theme from './../theme';
 
@@ -58,7 +53,7 @@ class Chat extends React.Component<Props, State> {
         let room = this.props.location.state.docName;
         const db = firebase.firestore();
         const docRef = db.collection("chat").doc(`${room}`);
-        let updateSingle = docRef.update({ chatLog: [...value, addValue] }).then(data => {
+        docRef.update({ chatLog: [...value, addValue] }).then(data => {
         }).catch(error => {
             console.log(error);
         })

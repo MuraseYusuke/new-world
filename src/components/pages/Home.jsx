@@ -3,7 +3,6 @@ import './../../App.css';
 import backImg from './../../assets/background.jpg';
 import { withRouter } from "react-router";
 import ImgMediaCard from './../molecules/Card';
-import firebase from './../../firebase';
 import Template from './../templates';
 
 class Home extends React.Component {
@@ -14,10 +13,6 @@ class Home extends React.Component {
   }
 
   render() {
-    const {
-      history
-    } = this.props;
-
     return (
       <Template>
         <ImgMediaCard
