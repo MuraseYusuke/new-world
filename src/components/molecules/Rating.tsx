@@ -4,10 +4,11 @@ import Rating from '@material-ui/lab/Rating';
 interface Props {
     onClick: () => void;
     style?: React.CSSProperties;
+    star: number;
 };
 
 export default function SimpleRating(props: Props){
-    const [value, setValue] = React.useState(2);
+    const [value, setValue] = React.useState(props.star ? props.star : 0);
     const { onClick, style } = props;
 
     return (

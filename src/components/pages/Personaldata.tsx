@@ -50,6 +50,7 @@ class PersonalData extends React.Component<Props, {}> {
                     style={{
                       width: "100%",
                       maxHeight: "200px",
+                      objectFit: "contain"
                     }}
                     src={location.state.userData.image}
                   />
@@ -78,6 +79,16 @@ class PersonalData extends React.Component<Props, {}> {
                   >
                     {"年齢："}
                     {location.state.userData.age}
+                  </div>
+                  <div
+                    style={{
+                      color: "white",
+                      display: "flex",
+                      justifyContent: "flex-start",
+                    }}
+                  >
+                    {"職業:"}：
+                  {location.state.userData.job}
                   </div>
                   <div
                     style={{

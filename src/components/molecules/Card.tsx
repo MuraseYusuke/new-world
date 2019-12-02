@@ -63,6 +63,7 @@ export default function ImgMediaCard(props: Props) {
 
 interface SimpleCardProps extends Props {
   style?: React.CSSProperties;
+  star: number;
 };
 
 export const SimpleCard = (props: SimpleCardProps) => {
@@ -72,6 +73,7 @@ export const SimpleCard = (props: SimpleCardProps) => {
     image,
     onClick,
     style,
+    star,
   } = props;
   return (
     <Card
@@ -124,6 +126,7 @@ export const SimpleCard = (props: SimpleCardProps) => {
               style={{
                 zIndex: 2,
               }}
+              star={star}
               onClick={() => {
 
               }}

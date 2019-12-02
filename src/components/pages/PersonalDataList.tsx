@@ -19,9 +19,11 @@ export interface PersonalDataProps {
     id: number;
     age: number;
     name: string;
+    job: string;
     image: string;
     visit?: string;
     description: string;
+    star: number;
 }
 
 class PersonalDataList extends React.Component<Props, State> {
@@ -77,8 +79,9 @@ class PersonalDataList extends React.Component<Props, State> {
                   minWidth: 360,
                 }}
                   title={d.name}
-                  text={d.description}
+                  text={d.job}
                   image={d.image}
+                  star={d.star}
                   onClick={() => {
                     history.push({ pathname: '/PersonalData', state: { userData: d }});
                   }}
