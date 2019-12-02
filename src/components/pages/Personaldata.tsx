@@ -24,28 +24,14 @@ class PersonalData extends React.Component<Props, {}> {
       <Template>
         <div
           style={{
-            display: "flex",
-            flexWrap: "wrap"
+            width: "calc(100vw - 16px)",
+            height: "100vh",
+            margin: 8,
+            border: "1px solid white",
+            borderRadius: 15,
           }}
         >
-          {
-            count.map(d => {
-              return (
-                <SimpleCard
-                style={{
-                  margin: 8,
-                  minWidth: 360,
-                }}
-                  title={"タイトル"}
-                  text={"テキスト"}
-                  image={backImg}
-                  onClick={() => {
-                    alert("test");
-                  }}
-                />
-              );
-            })
-          }
+
         </div>
       </Template>
     );

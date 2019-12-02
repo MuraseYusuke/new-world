@@ -67,6 +67,7 @@ class Template extends React.Component<Props, State> {
         const ListItemList: ListItemListProps = {
             main: [
                 {
+                    authType: ListAuthType.normal,
                     title: 'ホーム',
                     iconType: IconType.Home,
                     onClick: () => {
@@ -74,6 +75,7 @@ class Template extends React.Component<Props, State> {
                     }
                 },
                 {
+                    authType: ListAuthType.normal,
                     title: 'チャット',
                     iconType: IconType.Chat,
                     onClick: (state) => {
@@ -81,15 +83,17 @@ class Template extends React.Component<Props, State> {
                     }
                 },
                 {
+                    authType: ListAuthType.admin,
                     title: 'パーソナルデータ',
                     iconType: IconType.Personal,
                     onClick: () => {
-                        history.push('/PersonalData');
+                        history.push('/PersonalDataList');
                     }
                 }
             ],
             sub: [
                 {
+                    authType: ListAuthType.normal,
                     title: 'ログアウト',
                     iconType: IconType.LogOut,
                     onClick: () => {
@@ -104,6 +108,7 @@ class Template extends React.Component<Props, State> {
             <div
                 style={{
                     minHeight: "100vh",
+                    maxHeight: "100vh",
                     backgroundImage: `url(${backImg})`,
                     backgroundSize: "cover",
                     zIndex: -2,
@@ -130,6 +135,7 @@ class Template extends React.Component<Props, State> {
                         {
                             userData ?
                                 <FullList
+                                    userData={userData}
                                     ListItemList={ListItemList}
                                 />
                                 :
@@ -148,18 +154,26 @@ interface ListItemListProps {
 }
 
 interface ListItems {
+    authType: ListAuthType,
     title: string,
     iconType: IconType,
     onClick: (option?: any) => void,
 }
 
+enum ListAuthType {
+    admin = 0,
+    normal,
+}
+
 interface FullListProps {
-    ListItemList: ListItemListProps
+    userData: any;
+    ListItemList: ListItemListProps;
 }
 
 const FullList = (props: FullListProps) => {
     const {
         ListItemList,
+        userData,
     } = props;
 
     return (

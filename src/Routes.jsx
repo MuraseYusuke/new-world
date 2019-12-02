@@ -6,7 +6,8 @@ import Chat from './components/pages/Chat';
 import ChatHome from './components/pages/ChatHome';
 import WelcomePage from './components/pages/Welcome';
 import ChangeProfile from './components/pages/ChangeProfile';
-import PersonalData from './components/pages/Personaldata';
+import PersonalData from './components/pages/PersonalData';
+import PersonalDataList from './components/pages/PersonalDataList'
 import NotFound from './components/pages/NotFound';
 
 
@@ -21,6 +22,7 @@ export class Routes extends React.Component {
                     <Route exact path="/Chat" component={Chat} />
                     <Route exact path="/Welcome" component={WelcomePage} />
                     <Route exact path="/ChangeProfile" component={ChangeProfile} />
+                    <Route exact path="/PersonalDataList" component={PersonalDataList} />
                     <Route exact path="/PersonalData" component={PersonalData} />
                     <Route exact Path="/NotFound" component={NotFound} />
                 </Switch>

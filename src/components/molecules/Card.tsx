@@ -120,8 +120,14 @@ export const SimpleCard = (props: SimpleCardProps) => {
             >
               {text}
             </Typography>
-            <Rating />
+            <Rating
+              style={{
+                zIndex: 2,
+              }}
+              onClick={() => {
 
+              }}
+            />
           </CardContent>
         </div>
       </CardActionArea>
