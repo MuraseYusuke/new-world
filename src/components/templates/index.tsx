@@ -23,6 +23,11 @@ import firebase from '../../firebase';
 import { withRouter, RouteComponentProps } from "react-router";
 import theme from './../theme';
 
+enum ListAuthType {
+    admin = 0,
+    normal,
+}
+
 interface Props extends RouteComponentProps {
 }
 
@@ -165,11 +170,6 @@ interface ListItems {
     title: string,
     iconType: IconType,
     onClick: (option?: any) => void,
-}
-
-enum ListAuthType {
-    admin = 0,
-    normal,
 }
 
 interface FullListProps {

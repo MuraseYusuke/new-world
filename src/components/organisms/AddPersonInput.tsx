@@ -6,8 +6,10 @@ import {
 import {
     Add,
 } from '@material-ui/icons';
+import firebase from './../../firebase';
 
 interface AddPersonProps {
+    personals: any[];
 }
 
 const AddPersonInput = (props: AddPersonProps) => {
@@ -17,10 +19,29 @@ const AddPersonInput = (props: AddPersonProps) => {
     const [visit, setVisit] = useState("");
     const [star, setStar] = useState(0);
     const [description, setDescription] = useState("");
-
-    useEffect(() => {
-
-    })
+    const [file, setFile] = useState();
+    const { personals } = props;
+    const addPerson = () => {
+        const db = firebase.firestore();
+        const addData = {
+            name,
+            age,
+            job,
+            visit,
+            star,
+            description,
+        }
+        firebase.auth().onAuthStateChanged(userData => {
+            if (userData) {
+                const docRef = db.collection("personal_data").doc(`${userData.email}`);
+                docRef.set([...personals, addData]).then((data) => {
+                    alert("登録しました");
+                }).catch(err => {
+                    alert("登録に失敗しました");
+                });
+            }
+        })
+    }
 
     return (
         <>
@@ -121,6 +142,15 @@ const AddPersonInput = (props: AddPersonProps) => {
                     setDescription(e.target.value);
                 }}
             />
+            <input
+                type="file"
+                name="image"
+                multiple={false}
+                onChange={(e) => {
+                    console.log({ e });
+                    // setFile(e.target.files[0]);
+                }}
+            />
             <Fab
                 onClick={() => {
 
@@ -129,7 +159,7 @@ const AddPersonInput = (props: AddPersonProps) => {
                 style={{
                 }}
             >
-                <Add />                
+                <Add />
             </Fab>
         </>
     )

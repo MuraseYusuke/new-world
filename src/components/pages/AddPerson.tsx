@@ -19,9 +19,14 @@ class AddPerson extends React.Component<Props, {}> {
     }
 
     render() {
+        const {
+            location
+        } = this.props;
         return (
             <Template>
-                <AddPersonInput />
+                <AddPersonInput
+                    personals={location.state.personals}
+                />
             </Template>
 
         );

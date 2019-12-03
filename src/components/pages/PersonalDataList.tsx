@@ -65,8 +65,6 @@ class PersonalDataList extends React.Component<Props, State> {
         history
     } = this.props;
 
-    const count = Array(5).fill(0);
-
     return (
       <Template>
         <div
@@ -86,7 +84,7 @@ class PersonalDataList extends React.Component<Props, State> {
                 }}
                   title={d.name}
                   text={d.job}
-                  image={d.image}
+                  image={d.image ? d.image : backImg}
                   star={d.star}
                   onClick={() => {
                     history.push({ pathname: '/PersonalData', state: { userData: d }});
@@ -103,7 +101,7 @@ class PersonalDataList extends React.Component<Props, State> {
             bottom: 16,
           }}
           onClick={() => {
-            history.push('/AddPerson');
+            history.push({ pathname: '/AddPerson', state: { personals: personals }});
           }}
         >
           <Add />
