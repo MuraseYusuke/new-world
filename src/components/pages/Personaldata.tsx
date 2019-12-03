@@ -30,7 +30,7 @@ class PersonalData extends React.Component<Props, {}> {
         <div
           style={{
             width: "calc(100vw - 16px)",
-            height: "100vh",
+            height: "calc(100vh - 50px)",
             margin: 8,
             border: "1px solid white",
             borderRadius: 10,

@@ -5,6 +5,12 @@ import { SimpleCard } from './../molecules/Card';
 import Template from './../templates';
 import { withRouter, RouteComponentProps } from "react-router";
 import firebase from './../../firebase';
+import { 
+  Fab,
+} from '@material-ui/core';
+import {
+  Add,
+} from '@material-ui/icons';
 
 interface Props extends RouteComponentProps {
 
@@ -90,6 +96,18 @@ class PersonalDataList extends React.Component<Props, State> {
             })
           }
         </div>
+        <Fab
+          style={{
+            position: "absolute",
+            right: 16,
+            bottom: 16,
+          }}
+          onClick={() => {
+            history.push('/AddPerson');
+          }}
+        >
+          <Add />
+        </Fab>
       </Template>
     );
   }
