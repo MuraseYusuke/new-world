@@ -5,6 +5,7 @@ import { SimpleCard } from './../molecules/Card';
 import Template from './../templates';
 import { withRouter, RouteComponentProps } from "react-router";
 import { PersonalDataProps } from './PersonalDataList';
+import { RadarChart, PolarGrid, PolarAngleAxis, Radar, Tooltip } from 'recharts';
 
 interface Props extends RouteComponentProps {
 }
@@ -21,9 +22,13 @@ class PersonalData extends React.Component<Props, {}> {
       location,
     } = this.props;
 
-    console.log({
-      location
-    })
+    const chartData = [
+      { rank: '国語', value: 120 },
+      { rank: '数学', value: 85 },
+      { rank: '理科', value: 60 },
+      { rank: '社会', value: 50 },
+      { rank: '英語', value: 10 },
+    ]
 
     return (
       <Template>
@@ -115,6 +120,7 @@ class PersonalData extends React.Component<Props, {}> {
               :
               null
           }
+          
         </div>
       </Template>
     );
