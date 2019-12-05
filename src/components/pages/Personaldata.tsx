@@ -120,7 +120,33 @@ class PersonalData extends React.Component<Props, {}> {
               :
               null
           }
-          
+          <div
+            style={{
+              color: "white",
+              margin: "0 auto"
+            }}
+          >
+            <RadarChart
+              height={300}
+              width={300}
+              cx="50%"
+              cy="50%"
+              data={chartData}
+            >
+              <PolarGrid />
+              <PolarAngleAxis
+                dataKey="rank"
+              />
+              <Radar
+                name="Mike"
+                dataKey="value"
+                stroke="#8884d8"
+                fill="#8884d8"
+                fillOpacity={0.6}
+              />
+              <Tooltip />
+            </RadarChart>
+          </div>
         </div>
       </Template>
     );
