@@ -26,10 +26,12 @@ export interface PersonalDataProps {
     age: number;
     name: string;
     job: string;
+    birthday: string;
     image: string;
     visit?: string;
     description: string;
     star: number;
+    chartData?: { rank: string, value: number }[];
 }
 
 class PersonalDataList extends React.Component<Props, State> {

@@ -6,6 +6,7 @@ import Template from './../templates';
 import { withRouter, RouteComponentProps } from "react-router";
 import { PersonalDataProps } from './PersonalDataList';
 import { RadarChart, PolarGrid, PolarAngleAxis, Radar, Tooltip } from 'recharts';
+import { fontStyle } from '@material-ui/system';
 
 interface Props extends RouteComponentProps {
 }
@@ -22,13 +23,9 @@ class PersonalData extends React.Component<Props, {}> {
       location,
     } = this.props;
 
-    const chartData = [
-      { rank: '国語', value: 120 },
-      { rank: '数学', value: 85 },
-      { rank: '理科', value: 60 },
-      { rank: '社会', value: 50 },
-      { rank: '英語', value: 10 },
-    ]
+    console.log({
+      location,
+    })
 
     return (
       <Template>
@@ -122,30 +119,44 @@ class PersonalData extends React.Component<Props, {}> {
           }
           <div
             style={{
-              color: "white",
-              margin: "0 auto"
+              textAlign: "center"
             }}
           >
-            <RadarChart
-              height={300}
-              width={300}
-              cx="50%"
-              cy="50%"
-              data={chartData}
-            >
-              <PolarGrid />
-              <PolarAngleAxis
-                dataKey="rank"
-              />
-              <Radar
-                name="Mike"
-                dataKey="value"
-                stroke="#8884d8"
-                fill="#8884d8"
-                fillOpacity={0.6}
-              />
-              <Tooltip />
-            </RadarChart>
+            {
+              location ?
+              <div
+                style={{
+                  display: "inline-block"
+                }}
+              >
+                <RadarChart
+                  height={300}
+                  width={300}
+                  cx="50%"
+                  cy="50%"
+                  data={location.state.userData.chartData}
+                  style={{
+                    backgroundColor: "white"
+                  }}
+
+                >
+                  <PolarGrid />
+                  <PolarAngleAxis
+                    dataKey="rank"
+                  />
+                  <Radar
+                    name="Mike"
+                    dataKey="value"
+                    stroke="#8884d8"
+                    fill="#8884d8"
+                    fillOpacity={0.6}
+                  />
+                  <Tooltip />
+                </RadarChart>
+              </div>
+              :
+              null
+            }
           </div>
         </div>
       </Template>

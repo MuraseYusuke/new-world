@@ -130,6 +130,9 @@ class Template extends React.Component<Props, State> {
                         onMenuClick={() => {
                             this.setState({ menuOpen: !menuOpen });
                         }}
+                        onProfileChange={() => {
+                            history.push('/ChangeProfile');
+                        }}
                     />
                     {children}
                     <SwipeableDrawer
