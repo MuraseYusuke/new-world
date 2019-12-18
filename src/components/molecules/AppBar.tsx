@@ -47,6 +47,7 @@ const AppBar = compose<Props, Props>(
         open: false,
       }
     }
+    private avatarElement = React.createRef<HTMLDivElement>();
 
     componentDidMount() {
       firebase.auth().onAuthStateChanged(userData => {
@@ -125,6 +126,9 @@ const AppBar = compose<Props, Props>(
                     <AlermIcon />
                   </Badge>
                 </IconButton>
+                <div
+                  ref={this.avatarElement}
+                >
                 <Button
                   color="inherit"
                   onClick={() => {
@@ -134,8 +138,10 @@ const AppBar = compose<Props, Props>(
                 >
                   <Avatar alt="user profile" src={userData && userData.photoURL} />
                 </Button>
+                </div>
                 <Popover
                   open={open}
+                  anchorEl={this.avatarElement.current}
                   onClose={() => {
                     this.setState({ open: false });
                   }}
