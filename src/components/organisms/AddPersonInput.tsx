@@ -7,6 +7,7 @@ import {
     Add,
 } from '@material-ui/icons';
 import firebase from './../../firebase';
+import theme from './../theme';
 
 interface AddPersonProps {
     personals: any[];
@@ -16,6 +17,7 @@ const AddPersonInput = (props: AddPersonProps) => {
     const [name, setName] = useState("");
     const [job, setJob] = useState("");
     const [age, setAge] = useState("");
+    const [birthday, setBirthday] = useState("");
     const [visit, setVisit] = useState("");
     const [star, setStar] = useState(0);
     const [description, setDescription] = useState("");
@@ -54,7 +56,7 @@ const AddPersonInput = (props: AddPersonProps) => {
                 variant={"outlined"}
                 style={{
                     flexGrow: 1,
-                    cursor: "text"
+                    cursor: "text",
                 }}
                 value={name}
                 onChange={(e) => {
@@ -70,11 +72,29 @@ const AddPersonInput = (props: AddPersonProps) => {
                 variant={"outlined"}
                 style={{
                     flexGrow: 1,
-                    cursor: "text"
+                    cursor: "text",
+                    color: theme.color.pureColor
                 }}
                 value={age}
                 onChange={(e) => {
                     setAge(e.target.value);
+                }}
+            />
+                        <TextField
+                id={"outlined-multiline-flexible"}
+                label={"生年月日"}
+                multiline
+                rowsMax={"1"}
+                margin={"normal"}
+                variant={"outlined"}
+                style={{
+                    flexGrow: 1,
+                    cursor: "text",
+                    color: theme.color.pureColor
+                }}
+                value={age}
+                onChange={(e) => {
+                    setBirthday(e.target.value);
                 }}
             />
             <TextField

@@ -136,7 +136,7 @@ class PersonalData extends React.Component<Props, {}> {
                   cy="50%"
                   data={location.state.userData.chartData}
                   style={{
-                    backgroundColor: "white"
+                    backgroundColor: "white",
                   }}
 
                 >
@@ -145,7 +145,7 @@ class PersonalData extends React.Component<Props, {}> {
                     dataKey="rank"
                   />
                   <Radar
-                    name="Mike"
+                    name={location.state.userData.chartData.rank}
                     dataKey="value"
                     stroke="#8884d8"
                     fill="#8884d8"
