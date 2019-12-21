@@ -6,9 +6,7 @@ class App extends React.Component {
   render() {
     console.log("app.jsx");
     return (
-      <React.Fragment>
         <Routes />
-      </React.Fragment>
     );
   }
 };

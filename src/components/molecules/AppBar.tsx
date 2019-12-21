@@ -67,7 +67,7 @@ const AppBar = compose<Props, Props>(
       } = this.state;
 
       return (
-        <div>
+        <React.Fragment>
           <div
             style={{
               flexGrow: 1,
@@ -93,7 +93,6 @@ const AppBar = compose<Props, Props>(
                   color="inherit"
                   aria-label="menu"
                   onClick={() => {
-                    console.log("MenuOpen");
                     onMenuClick();
                   }}
                 >
@@ -178,7 +177,7 @@ const AppBar = compose<Props, Props>(
             </MAppBar>
           </div>
           <div style={{ width: "100%", height: 56 }} />
-        </div>
+        </React.Fragment>
       );
     }
   }
