@@ -10,6 +10,8 @@ import PersonalData from './components/pages/PersonalData';
 import PersonalDataList from './components/pages/PersonalDataList';
 import AddPerson from './components/pages/AddPerson';
 import NotFound from './components/pages/NotFound';
+import Ranking from './components/pages/Ranking';
+import RankingList from './components/pages/RankingList';
 
 
 export class Routes extends React.Component {
@@ -26,6 +28,8 @@ export class Routes extends React.Component {
                     <Route exact path="/PersonalDataList" component={PersonalDataList} />
                     <Route exact path="/PersonalData" component={PersonalData} />
                     <Route exact path="/AddPerson" component={AddPerson} />
+                    <Route exact path="/RankingList" component={RankingList} />
+                    <Route exact path="/Ranking" component={Ranking} />
                     <Route exact Path="/NotFound" component={NotFound} />
                 </Switch>
             </BrowserRouter>

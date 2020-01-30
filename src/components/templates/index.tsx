@@ -17,6 +17,7 @@ import {
     MoveToInbox as InboxIcon,
     Subject as SubjectIcon,
     Home as HomeIcon,
+    ShowChart as ChartIcon,
     PersonOutline as OPerson
 } from '@material-ui/icons';
 import firebase from '../../firebase';
@@ -43,6 +44,7 @@ enum IconType {
     Mail,
     Personal,
     LogOut,
+    ShowChart,
 }
 
 class Template extends React.Component<Props, State> {
@@ -96,6 +98,14 @@ class Template extends React.Component<Props, State> {
                     iconType: IconType.Personal,
                     onClick: () => {
                         history.push('/PersonalDataList');
+                    }
+                },
+                {
+                    authType: ListAuthType.admin,
+                    title: 'ランキング',
+                    iconType: IconType.ShowChart,
+                    onClick: () => {
+                        history.push('/RankingList');
                     }
                 }
             ],
@@ -265,8 +275,11 @@ const ListIcon = (props: ListIconProps) => {
                         );
                     case IconType.Personal:
                         return <OPerson />;
+                    case IconType.ShowChart:
+                        return <ChartIcon />
                     default:
                         return <SubjectIcon />;
+                        
                 }
             })()}
         </div>

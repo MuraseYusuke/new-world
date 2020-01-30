@@ -30,6 +30,7 @@ interface ChatValue {
 }
 
 class Chat extends React.Component<Props, State> {
+    private unsubscribe: any;
     constructor(props: Props) {
         super(props);
         this.state = {
@@ -37,8 +38,11 @@ class Chat extends React.Component<Props, State> {
             chatLog: [],
             userData: undefined,
         }
+        this.unsubscribe = undefined;
     }
 
+
+    //firestore にデータ取得しに行く関数
     async getData() {
         let room = this.props.location.state.docName;
         const db = firebase.firestore();
@@ -49,14 +53,34 @@ class Chat extends React.Component<Props, State> {
         data && this.setState({ chatLog: data.chatLog });
     }
 
+    //firestore にデータセットしに行く関数
     async setData(value: ChatValue[], addValue: ChatValue) {
         let room = this.props.location.state.docName;
         const db = firebase.firestore();
-        const docRef = db.collection("chat").doc(`${room}`);
+        const docRef = db.collection("chat").doc(room);
         docRef.update({ chatLog: [...value, addValue] }).then(data => {
         }).catch(error => {
             console.log(error);
-        })
+            })
+    }
+
+    onLoadSnapShot = (room: string, no: string) => {
+        this.unsubscribe = firebase.firestore()
+            .collection("chat")
+            .doc(room)
+            .collection(no)
+            .orderBy("id", "desc")
+            .onSnapshot(snapShot => {
+                let sample: any[] = [];
+
+                snapShot.forEach((res) => {
+                    sample.push(res.data());
+                });
+                console.log({
+                    sample
+                })
+
+            });
     }
 
     componentDidMount() {
@@ -64,6 +88,7 @@ class Chat extends React.Component<Props, State> {
         firebase.auth().onAuthStateChanged(userData => {
             this.setState({ userData });
         });
+        
     }
 
     render() {
