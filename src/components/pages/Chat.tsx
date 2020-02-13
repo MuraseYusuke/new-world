@@ -30,7 +30,6 @@ interface ChatValue {
 }
 
 class Chat extends React.Component<Props, State> {
-    private firestore: any;
     constructor(props: Props) {
         super(props);
         this.state = {
@@ -38,7 +37,6 @@ class Chat extends React.Component<Props, State> {
             chatLog: [],
             userData: undefined,
         }
-        this.firestore = undefined;
     }
 
 
@@ -67,14 +65,18 @@ class Chat extends React.Component<Props, State> {
 
     //HACK: オブザーバーとしてまだ動かない状態
     onLoadSnapShot = (room: string, no: string) => {
-        let doc = this.firestore.collection("chat").doc(room);
-        let observer = doc.onSnapshot((snapshot: any) => {
-            if (typeof snapshot.docChanges === "function") {
-                snapshot.docChanges().forEach((change: any) => {
-                    console.log(change)
-                })
-            }
-        })
+        let doc = firebase
+        .firestore()
+        .collection("chat")
+            .onSnapshot(snapshot => {
+                snapshot.docChanges().forEach(change => {
+                    let data = change.doc.data();
+                    if(data.chatLog.length !== this.state.chatLog.length ){
+                        this.setState({ chatLog: data.chatLog });
+                    }
+
+                });
+            })
     }
 
     componentDidMount() {
@@ -82,7 +84,6 @@ class Chat extends React.Component<Props, State> {
         firebase.auth().onAuthStateChanged(userData => {
             this.setState({ userData });
         });
-        this.firestore = firebase.firestore();
         this.onLoadSnapShot(this.props.location.state.docName, "");
     }
 

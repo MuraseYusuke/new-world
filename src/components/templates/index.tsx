@@ -72,8 +72,6 @@ class Template extends React.Component<Props, State> {
             userData,
         } = this.state;
 
-        console.log(menuOpen);
-
         const ListItemList: ListItemListProps = {
             main: [
                 {
@@ -130,7 +128,9 @@ class Template extends React.Component<Props, State> {
                     maxHeight: "calc(100vh - 50px)",
                     backgroundImage: `url(${backImg})`,
                     backgroundSize: "cover",
+                    backgroundAttachment: 'fixed',
                     fontFamily: theme.fontFamily,
+                    overflow: 'hidden'
                 }}
             >
                 <GrayLayer>
