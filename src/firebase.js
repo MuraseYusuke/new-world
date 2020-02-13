@@ -1,11 +1,11 @@
 import { initializeApp } from 'firebase';
 
 export default initializeApp({
-    apiKey: "AIzaSyCMJlnC9KQkswadUs3S8W6xi-ZUOg1dT4E",
+    apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
     authDomain: "new-world-2b3fc.firebaseapp.com",
     databaseURL: "https://new-world-2b3fc.firebaseio.com",
     projectId: "new-world-2b3fc",
     storageBucket: "new-world-2b3fc.appspot.com",
-    messagingSenderId: "182421295404",
-    appId: "1:182421295404:web:502cbaf33bda98ea"
+    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_APP_ID
 });

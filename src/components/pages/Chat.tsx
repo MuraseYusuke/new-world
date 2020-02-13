@@ -37,8 +37,9 @@ class Chat extends React.Component<Props, State> {
             chatLog: [],
             userData: undefined,
         }
+        this.scrollElement = null;
     }
-
+    private scrollElement: HTMLDivElement | null;
 
     //firestore にデータ取得しに行く関数
     async getData() {
@@ -62,8 +63,7 @@ class Chat extends React.Component<Props, State> {
         })
     }
 
-
-    //HACK: オブザーバーとしてまだ動かない状態
+    //firestoreの更新を監視
     onLoadSnapShot = (room: string, no: string) => {
         let doc = firebase
         .firestore()
@@ -77,6 +77,18 @@ class Chat extends React.Component<Props, State> {
 
                 });
             })
+    }
+
+    componentWillReceiveProps(nextProps: Props, nextState: State) {
+        if (nextState.chatLog.length !== this.state.chatLog.length) {
+            if (nextState.chatLog.length > this.state.chatLog.length) {
+                requestAnimationFrame(() => {
+                    if (!!this.scrollElement) {
+                        this.scrollElement.scrollTop = this.scrollElement.scrollHeight;
+                    }
+                })
+            }
+        }
     }
 
     componentDidMount() {
@@ -107,6 +119,7 @@ class Chat extends React.Component<Props, State> {
                             overflow: "auto",
                             marginBottom: 80,
                         }}
+                        ref={elm => this.scrollElement = elm}
                     >
                         {
                             <List
