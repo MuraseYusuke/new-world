@@ -30,7 +30,7 @@ interface ChatValue {
 }
 
 class Chat extends React.Component<Props, State> {
-    private unsubscribe: any;
+    private firestore: any;
     constructor(props: Props) {
         super(props);
         this.state = {
@@ -38,7 +38,7 @@ class Chat extends React.Component<Props, State> {
             chatLog: [],
             userData: undefined,
         }
-        this.unsubscribe = undefined;
+        this.firestore = undefined;
     }
 
 
@@ -61,26 +61,20 @@ class Chat extends React.Component<Props, State> {
         docRef.update({ chatLog: [...value, addValue] }).then(data => {
         }).catch(error => {
             console.log(error);
-            })
+        })
     }
 
+
+    //HACK: オブザーバーとしてまだ動かない状態
     onLoadSnapShot = (room: string, no: string) => {
-        this.unsubscribe = firebase.firestore()
-            .collection("chat")
-            .doc(room)
-            .collection(no)
-            .orderBy("id", "desc")
-            .onSnapshot(snapShot => {
-                let sample: any[] = [];
-
-                snapShot.forEach((res) => {
-                    sample.push(res.data());
-                });
-                console.log({
-                    sample
+        let doc = this.firestore.collection("chat").doc(room);
+        let observer = doc.onSnapshot((snapshot: any) => {
+            if (typeof snapshot.docChanges === "function") {
+                snapshot.docChanges().forEach((change: any) => {
+                    console.log(change)
                 })
-
-            });
+            }
+        })
     }
 
     componentDidMount() {
@@ -88,7 +82,8 @@ class Chat extends React.Component<Props, State> {
         firebase.auth().onAuthStateChanged(userData => {
             this.setState({ userData });
         });
-        
+        this.firestore = firebase.firestore();
+        this.onLoadSnapShot(this.props.location.state.docName, "");
     }
 
     render() {
@@ -102,93 +97,99 @@ class Chat extends React.Component<Props, State> {
             <Template>
                 <div
                     style={{
-                        overflow: "auto",
-                        marginBottom: 140,
+                        height: '100vh',
+                        width: '100vw',
                     }}
                 >
-                {
-                    <List
+                    <div
                         style={{
-                            maxHeight: "calc(100% - 210px)",
+                            overflow: "auto",
+                            marginBottom: 80,
                         }}
                     >
                         {
-                            chatLog && chatLog.map((d, index) => {
-                                return (
-                                    <div
-                                        key={index}
-                                        style={{
-                                            color: "white",
-                                            marginRight: 8,
-                                            marginLeft: 8,
-                                            textAlign: (userData && d.uid === userData.uid) ? "right" : "left",
-                                        }}
-                                    >
-                                        <div
-                                            style={{
-                                                display: "inline-block",
-                                                padding: 8,
-                                                border: `1px solid ${theme.color.pureColor}`,
-                                                borderRadius: 10,
-                                                marginTop: 8,
-                                            }}
-                                        >
-                                            <div style={{ fontSize: 10 }}>{d.name}</div>
-                                            <div>{d.text}</div>
-                                        </div>
-                                    </div>
-                                );
-                            })
+                            <List
+                                style={{
+                                    maxHeight: "calc(100% - 210px)",
+                                }}
+                            >
+                                {
+                                    chatLog && chatLog.map((d, index) => {
+                                        return (
+                                            <div
+                                                key={index}
+                                                style={{
+                                                    color: "white",
+                                                    marginRight: 8,
+                                                    marginLeft: 8,
+                                                    textAlign: (userData && d.uid === userData.uid) ? "right" : "left",
+                                                }}
+                                            >
+                                                <div
+                                                    style={{
+                                                        display: "inline-block",
+                                                        padding: 8,
+                                                        border: `1px solid ${theme.color.pureColor}`,
+                                                        borderRadius: 10,
+                                                        marginTop: 8,
+                                                    }}
+                                                >
+                                                    <div style={{ fontSize: 10 }}>{d.name}</div>
+                                                    <div>{d.text}</div>
+                                                </div>
+                                            </div>
+                                        );
+                                    })
+                                }
+                            </List>
                         }
-                    </List>
-                }
-                </div>
-                <Paper
-                    style={{
-                        display: "flex",
-                        position: "fixed",
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        paddingTop: 0,
-                        paddingBottom: 0,
-                        alignItems: "center",
-                        borderRadius: 0,
-                    }}
-                >
-                    <TextField
-                        id={"outlined-multiline-flexible"}
-                        label={"コメントを入力"}
-                        multiline
-                        rowsMax={"4"}
-                        margin={"normal"}
-                        variant={"outlined"}
+                    </div>
+                    <Paper
                         style={{
-                            flexGrow: 1,
-                            cursor: "text"
-                        }}
-                        value={text}
-                        onChange={(e) => {
-                            this.setState({ text: e.target.value });
-                        }}
-                    />
-                    <IconButton
-                        style={{
-                            height: 48,
-                            marginTop: 16,
-                            marginBottom: 8,
-                        }}
-                        onClick={() => {
-                            this.setData([...chatLog], { uid: userData.uid, name: userData.displayName, text });
-                            this.setState({
-                                chatLog: [...chatLog, { uid: userData.uid, name: userData.displayName, text }],
-                                text: "",
-                            });
+                            width: '100%',
+                            display: 'flex',
+                            boxSizing: 'border-box',
+                            position: 'fixed',
+                            bottom: 0,
+                            padding: '0px 8px',
+                            alignItems: 'center'
                         }}
                     >
-                        <Send />
-                    </IconButton>
-                </Paper>
+                        <TextField
+                            id={"outlined-multiline-flexible"}
+                            label={"コメントを入力"}
+                            multiline
+                            rowsMax={"4"}
+                            margin={"normal"}
+                            variant={"outlined"}
+                            style={{
+                                flexGrow: 1,
+                                cursor: "text"
+                            }}
+                            value={text}
+                            onChange={(e) => {
+                                this.setState({ text: e.target.value });
+                            }}
+                        />
+                        <IconButton
+                            style={{
+                                height: 48,
+                                marginTop: 16,
+                                marginBottom: 8,
+                            }}
+                            onClick={() => {
+                                this.setData([...chatLog], { uid: userData.uid, name: userData.displayName, text });
+                                this.setState({
+                                    chatLog: [...chatLog, { uid: userData.uid, name: userData.displayName, text }],
+                                    text: "",
+                                });
+                            }}
+                            disabled={!text}
+                        >
+                            <Send />
+                        </IconButton>
+                    </Paper>
+                </div>
             </Template>
         );
     }
