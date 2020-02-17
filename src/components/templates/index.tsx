@@ -124,8 +124,8 @@ class Template extends React.Component<Props, State> {
             <div
                 style={{
                     position: "relative",
-                    minHeight: "calc(100vh - 50px)",
-                    maxHeight: "calc(100vh - 50px)",
+                    height: '100vh',
+                    width: '100vw',
                     backgroundImage: `url(${backImg})`,
                     backgroundSize: "cover",
                     backgroundAttachment: 'fixed',
