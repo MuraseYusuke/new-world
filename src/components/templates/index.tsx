@@ -194,8 +194,13 @@ const FullList = (props: FullListProps) => {
     } = props;
 
     return (
-        <div>
-            <List>
+        <div
+            key={'full_list'}
+        >
+            <List
+                style={{
+                }}
+            >
                 {
                     ListItemList && ListItemList.main.map((item, index) => {
                         return (
@@ -222,7 +227,10 @@ const FullList = (props: FullListProps) => {
                 }
             </List>
             <Divider />
-            <List>
+            <List
+                style={{
+                }}
+            >
                 {
                     ListItemList && ListItemList.sub.map((item, index) => {
                         return (

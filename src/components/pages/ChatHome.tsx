@@ -85,6 +85,7 @@ class ChatHome extends React.Component<Props, State> {
                             onClick={() => {
                                 this.props.history.push({ pathname: "/Chat", state: { docName: d.id }})
                             }}
+                            key={`chat_card_${d.id}`}
                         />
                     ))
                 }
