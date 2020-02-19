@@ -4,6 +4,8 @@ import TextField from '@material-ui/core/TextField';
 import {
     Add,
 } from '@material-ui/icons';
+import { withStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import firebase from './../../firebase';
 import theme from './../theme';
 import OutlineButton from '@material-ui/core/Button';
@@ -52,6 +54,9 @@ const AddPersonInput = (props: AddPersonProps) => {
         },
         input: {
             color: theme.color.pureColor
+        },
+        notchedOutline: {
+            borderColor: theme.color.pureColor,
         }
     });
 
@@ -65,7 +70,9 @@ const AddPersonInput = (props: AddPersonProps) => {
                 margin={"normal"}
                 variant={"outlined"}
                 className={css(ss.root)}
-                inputProps={{ className: css(ss.input) }}
+                inputProps={{ 
+                    className: css(ss.notchedOutline) 
+                    }}
                 style={{
                     flexGrow: 1,
                     cursor: "text",
@@ -206,7 +213,7 @@ const AddPersonInput = (props: AddPersonProps) => {
                     }
                 }}
             />
-            <img src={file} style={{ maxHeight: 200, width: 200, objectFit: 'contain' }} />
+            <img src={file} style={{ maxHeight: 100, width: 100, objectFit: 'contain' }} />
             <div
                 style={{
                     width: '100%',
