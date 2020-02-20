@@ -46,9 +46,6 @@ class PersonalDataList extends React.Component<Props, State> {
   componentDidMount(){
       firebase.auth().onAuthStateChanged(userData => {
           this.setState({ userData }, async () => {
-              console.log({
-                  email: this.state.userData,
-              })
               const db = firebase.firestore();
               const personalDataRef = db.collection('personal_data').doc(`${this.state.userData.email}`);
               const docs = await personalDataRef.get();

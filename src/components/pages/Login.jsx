@@ -16,10 +16,12 @@ class Login extends React.Component {
 
   componentDidMount(){
     firebase.auth().onAuthStateChanged(user => {
-      console.log({user});
       if(user){
         this.props.history.push('/Home');
       }
+    })
+    firebase.auth().currentUser.getIdToken(true).then(function(idToken){
+      console.log({idToken});
     })
   }
 
@@ -33,10 +35,6 @@ class Login extends React.Component {
   }
 
   async handelLogin(email, password){
-    console.log({
-      email,
-      password,
-    })
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
       this.props.history.push('/Home');

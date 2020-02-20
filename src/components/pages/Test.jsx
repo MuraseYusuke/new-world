@@ -57,7 +57,6 @@ class Test extends React.Component {
   }
 
   onAddClick() {
-    console.log(this.props.history);
     this.props.history.push("/ChangeProfile");
   }
 

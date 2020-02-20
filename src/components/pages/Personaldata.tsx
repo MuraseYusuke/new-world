@@ -23,10 +23,6 @@ class PersonalData extends React.Component<Props, {}> {
       location,
     } = this.props;
 
-    console.log({
-      location,
-    })
-
     return (
       <Template>
         <div

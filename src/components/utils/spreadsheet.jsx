@@ -20,7 +20,6 @@ export const getChatData = async () => {
         })
     });
     const responseJSON = await response.json();
-    console.log(responseJSON);
 };
 
 export const setChatData = async (props) => {
@@ -47,5 +46,4 @@ export const setChatData = async (props) => {
         })
     });
     const responseJSON = await response.json();
-    console.log(responseJSON);
 };

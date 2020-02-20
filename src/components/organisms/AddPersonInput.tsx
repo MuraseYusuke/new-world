@@ -202,10 +202,6 @@ const AddPersonInput = (props: AddPersonProps) => {
                 name="image"
                 multiple={false}
                 onChange={(e) => {
-                    console.log({
-                        e,
-                        file: e.target.files
-                    });
                     if (!!e.target.files && e.target.files.length > 0) {
                         const imgURL = window.URL.createObjectURL(e.target.files[0]);
 
