@@ -30,7 +30,7 @@ export class Routes extends React.Component {
                     <Route exact path="/AddPerson" component={AddPerson} />
                     <Route exact path="/RankingList" component={RankingList} />
                     <Route exact path="/Ranking" component={Ranking} />
-                    <Route exact Path="/NotFound" component={NotFound} />
+                    <Route exact component={NotFound} />
                 </Switch>
             </BrowserRouter>
         );

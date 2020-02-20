@@ -20,9 +20,6 @@ class Login extends React.Component {
         this.props.history.push('/Home');
       }
     })
-    firebase.auth().currentUser.getIdToken(true).then(function(idToken){
-      console.log({idToken});
-    })
   }
 
   async handleSignUp(email, password) {
@@ -37,6 +34,9 @@ class Login extends React.Component {
   async handelLogin(email, password){
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
+      firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
+        console.log({idToken});
+      });
       this.props.history.push('/Home');
     }catch(error){
       this.setState({ loginError: "メールアドレスまたはパスワードが違います" })

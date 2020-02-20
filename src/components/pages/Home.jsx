@@ -20,8 +20,6 @@ class Home extends React.Component {
   componentDidMount(){
     firebase.auth().onAuthStateChanged(userData => {
       this.setState({ userData }, async () => {
-
-
       });
     });
   }

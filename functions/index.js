@@ -15,6 +15,8 @@ exports.update = functions.firestore.document('chat/GAIbg8pTLK7rD3hPVly6').onUpd
     const newValue = snap.after.data();
     const previousValue = snap.before.data();
     console.log({
-        test: "test"
+        test: "test",
+        newValue,
+        previousValue
     })
 });
