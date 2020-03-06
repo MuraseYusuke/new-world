@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
-import firebase from './../../firebase';
+import firebase, { getFirebaseData, firestore } from './../../firebase';
 import theme from './../theme';
 import OutlineButton from '@material-ui/core/Button';
 import { css, StyleSheet } from 'aphrodite';
 
 interface AddPersonProps {
     personals: any[];
+    userData: any;
 }
+
+const getLastId = (arr: any[]) => {
+    return arr.reduce((acm, c, i) => {
+        let id = c.id;
+        return acm < c ? c : acm;
+    }, 0);
+}
+
 
 const AddPersonInput = (props: AddPersonProps) => {
     const [name, setName] = useState("");
@@ -17,29 +26,34 @@ const AddPersonInput = (props: AddPersonProps) => {
     const [visit, setVisit] = useState("");
     const [star, setStar] = useState(0);
     const [description, setDescription] = useState("");
-    const [file, setFile] = useState();
-    const { personals } = props;
-    const addPerson = () => {
+    const [image, setFile] = useState();
+    const { personals, userData } = props;
+    const addPerson = async () => {
         const db = firebase.firestore();
+        const id = getLastId(personals) + 1;
         const addData = {
-            name,
-            age,
-            job,
-            birthday,
-            visit,
-            star,
-            description,
+            age: age,
+            description: description,
+            id: id,
+            image: image,
+            job: job,
+            name: name,
+            star: star,
+            visit: visit,
         }
-        firebase.auth().onAuthStateChanged(userData => {
-            if (userData) {
-                const docRef = db.collection("personal_data").doc(`${userData.email}`);
-                docRef.set([...personals, addData]).then((data) => {
-                    alert("登録しました");
-                }).catch(err => {
-                    alert("登録に失敗しました");
-                });
-            }
-        })
+        if(!!userData){
+            const docRef = firestore.collection('personal_data').doc(userData.email);
+            const test = await getFirebaseData('personal_data', userData.email);
+            console.log({
+                test
+            });
+            docRef.update({ personals: [...personals, addData] }).then((data) => {
+                alert("登録しました");
+    
+            }).catch(err => {
+                alert("登録に失敗しました");
+            })
+        }
     }
 
     const ss = StyleSheet.create({
@@ -111,7 +125,7 @@ const AddPersonInput = (props: AddPersonProps) => {
                     color: theme.color.pureColor,
                     borderColor: theme.color.pureColor,
                 }}
-                value={age}
+                value={birthday}
                 onChange={(e) => {
                     setBirthday(e.target.value);
                 }}
@@ -204,7 +218,7 @@ const AddPersonInput = (props: AddPersonProps) => {
                 }}
             />
             <img
-                src={file}
+                src={image}
                 style={{
                     maxHeight: 100,
                     width: 100,

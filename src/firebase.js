@@ -10,11 +10,11 @@ const firebase = initializeApp({
     appId: process.env.REACT_APP_APP_ID
 });
 
-const db = firebase.firestore();
+export const firestore = firebase.firestore();
 
 // firebaseのデータGET
 export async function getFirebaseData(collection, document){
-    const docRef = db.collection(collection).doc(document);
+    const docRef = firestore.collection(collection).doc(document);
     const doc = await docRef.get();
     const data = doc.data();
     return data;

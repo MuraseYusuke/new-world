@@ -20,7 +20,7 @@ import {
   Chat as ChatIcon,
 } from '@material-ui/icons';
 import theme from './../theme';
-import firebase from '../../firebase';
+import { getFirebaseAuth } from '../../firebase';
 import { compose, defaultProps } from 'recompose';
 
 interface Props {
@@ -50,7 +50,7 @@ const AppBar = compose<Props, Props>(
     private avatarElement = React.createRef<HTMLDivElement>();
 
     componentDidMount() {
-      firebase.auth().onAuthStateChanged(userData => {
+      getFirebaseAuth((userData: any) => {
         this.setState({ userData });
       });
     }
@@ -128,15 +128,15 @@ const AppBar = compose<Props, Props>(
                 <div
                   ref={this.avatarElement}
                 >
-                <Button
-                  color="inherit"
-                  onClick={() => {
-                    this.setState({ open: true });
-                  }}
-                  disableRipple={true}
-                >
-                  <Avatar alt="user profile" src={userData && userData.photoURL} />
-                </Button>
+                  <Button
+                    color="inherit"
+                    onClick={() => {
+                      this.setState({ open: true });
+                    }}
+                    disableRipple={true}
+                  >
+                    <Avatar alt="user profile" src={userData && userData.photoURL} />
+                  </Button>
                 </div>
                 <Popover
                   open={open}
