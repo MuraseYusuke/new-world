@@ -28,11 +28,6 @@ class WelcomePage extends React.Component {
     }
 
   render() {
-    const {
-        open,
-        newWorld,
-    } = this.state;
-
       return (
           <BkColor>
               <GifContainer>

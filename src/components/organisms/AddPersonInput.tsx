@@ -1,15 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import Fab from '@material-ui/core/Fab';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
-import {
-    Add,
-} from '@material-ui/icons';
-import { withStyles } from '@material-ui/styles';
-import { makeStyles } from '@material-ui/core/styles';
 import firebase from './../../firebase';
 import theme from './../theme';
 import OutlineButton from '@material-ui/core/Button';
-import { getAuth, getData } from '../../utils/firebase';
 import { css, StyleSheet } from 'aphrodite';
 
 interface AddPersonProps {
@@ -32,6 +25,7 @@ const AddPersonInput = (props: AddPersonProps) => {
             name,
             age,
             job,
+            birthday,
             visit,
             star,
             description,
@@ -70,9 +64,9 @@ const AddPersonInput = (props: AddPersonProps) => {
                 margin={"normal"}
                 variant={"outlined"}
                 className={css(ss.root)}
-                inputProps={{ 
-                    className: css(ss.notchedOutline) 
-                    }}
+                inputProps={{
+                    className: css(ss.notchedOutline)
+                }}
                 style={{
                     flexGrow: 1,
                     cursor: "text",
@@ -90,7 +84,7 @@ const AddPersonInput = (props: AddPersonProps) => {
                 rowsMax={"1"}
                 margin={"normal"}
                 variant={"outlined"}
-                inputProps={{ style: { color: theme.color.pureColor }}}
+                inputProps={{ style: { color: theme.color.pureColor } }}
                 style={{
                     flexGrow: 1,
                     cursor: "text",
@@ -110,7 +104,7 @@ const AddPersonInput = (props: AddPersonProps) => {
                 rowsMax={"1"}
                 margin={"normal"}
                 variant={"outlined"}
-                inputProps={{ style: { color: theme.color.pureColor }}}
+                inputProps={{ style: { color: theme.color.pureColor } }}
                 style={{
                     flexGrow: 1,
                     cursor: "text",
@@ -130,7 +124,7 @@ const AddPersonInput = (props: AddPersonProps) => {
                 rowsMax={"1"}
                 margin={"normal"}
                 variant={"outlined"}
-                inputProps={{ style: { color: theme.color.pureColor }}}
+                inputProps={{ style: { color: theme.color.pureColor } }}
                 style={{
                     flexGrow: 1,
                     cursor: "text"
@@ -148,7 +142,7 @@ const AddPersonInput = (props: AddPersonProps) => {
                 rowsMax={"1"}
                 margin={"normal"}
                 variant={"outlined"}
-                inputProps={{ style: { color: theme.color.pureColor }}}
+                inputProps={{ style: { color: theme.color.pureColor } }}
                 style={{
                     flexGrow: 1,
                     cursor: "text"
@@ -171,7 +165,7 @@ const AddPersonInput = (props: AddPersonProps) => {
                     flexGrow: 1,
                     cursor: "text"
                 }}
-                inputProps={{ style: { color: theme.color.pureColor }}}
+                inputProps={{ style: { color: theme.color.pureColor } }}
                 value={star}
                 onChange={(e) => {
                     const star = Number(e.target.value);
@@ -209,7 +203,15 @@ const AddPersonInput = (props: AddPersonProps) => {
                     }
                 }}
             />
-            <img src={file} style={{ maxHeight: 100, width: 100, objectFit: 'contain' }} />
+            <img
+                src={file}
+                style={{
+                    maxHeight: 100,
+                    width: 100,
+                    objectFit: 'contain'
+                }}
+                alt={'preview'}
+            />
             <div
                 style={{
                     width: '100%',
@@ -227,7 +229,7 @@ const AddPersonInput = (props: AddPersonProps) => {
                         minHeight: 40
                     }}
                     onClick={() => {
-
+                        addPerson();
                     }}
                 >{"追加"}</OutlineButton>
             </div>

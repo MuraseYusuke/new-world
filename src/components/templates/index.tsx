@@ -20,7 +20,7 @@ import {
     ShowChart as ChartIcon,
     PersonOutline as OPerson
 } from '@material-ui/icons';
-import firebase from '../../firebase';
+import firebase, { getFirebaseAuth } from '../../firebase';
 import { withRouter, RouteComponentProps } from "react-router";
 import theme from './../theme';
 
@@ -56,10 +56,14 @@ class Template extends React.Component<Props, State> {
         }
     }
 
+    async getAuth() {
+        await getFirebaseAuth((data: any) => {
+            this.setState({ userData: data });
+        });
+    }
+
     componentDidMount() {
-        firebase.auth().onAuthStateChanged(userData => {
-            this.setState({ userData });
-        })
+        this.getAuth();
     }
 
     render() {
@@ -190,7 +194,6 @@ interface FullListProps {
 const FullList = (props: FullListProps) => {
     const {
         ListItemList,
-        userData,
     } = props;
 
     return (
@@ -287,7 +290,7 @@ const ListIcon = (props: ListIconProps) => {
                         return <ChartIcon />
                     default:
                         return <SubjectIcon />;
-                        
+
                 }
             })()}
         </div>

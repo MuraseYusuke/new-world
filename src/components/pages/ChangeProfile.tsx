@@ -1,6 +1,5 @@
 import React from 'react';
 import { withRouter, RouteComponentProps } from "react-router";
-import Iframe from 'react-iframe';
 import Template from './../templates';
 import firebase from '../../firebase';
 

@@ -1,12 +1,8 @@
 import * as React from 'react';
 import './../../App.css';
-import backImg from './../../assets/background.jpg';
-import { SimpleCard } from './../molecules/Card';
 import Template from './../templates';
 import { withRouter, RouteComponentProps } from "react-router";
-import { PersonalDataProps } from './PersonalDataList';
 import { RadarChart, PolarGrid, PolarAngleAxis, Radar, Tooltip } from 'recharts';
-import { fontStyle } from '@material-ui/system';
 
 interface Props extends RouteComponentProps {
 }
@@ -51,6 +47,7 @@ class PersonalData extends React.Component<Props, {}> {
                       objectFit: "contain"
                     }}
                     src={location.state.userData.image}
+                    alt={'userImg'}
                   />
                 </div>
                 <div

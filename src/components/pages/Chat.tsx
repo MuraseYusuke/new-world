@@ -11,7 +11,7 @@ import {
     Send
 } from '@material-ui/icons';
 import Paper from './../molecules/Paper';
-import firebase from './../../firebase';
+import firebase, { getFirebaseData } from './../../firebase';
 import theme from './../theme';
 
 interface Props extends RouteComponentProps {
@@ -44,20 +44,21 @@ class Chat extends React.Component<Props, State> {
     //firestore にデータ取得しに行く関数
     async getData() {
         let room = this.props.location.state.docName;
-        const db = firebase.firestore();
-        const docRef = db.collection("chat").doc(`${room}`);
-
-        const doc = await docRef.get();
-        const data = doc.data();
-        data && this.setState({ chatLog: data.chatLog });
+        const data = await getFirebaseData('chat', room);
+        data && this.setState({ chatLog: data.chatLog })
     }
 
     //firestore にデータセットしに行く関数
     async setData(value: ChatValue[], addValue: ChatValue) {
         let room = this.props.location.state.docName;
+        console.log({
+            value,
+            addValue,
+        })
         const db = firebase.firestore();
         const docRef = db.collection("chat").doc(room);
         docRef.update({ chatLog: [...value, addValue] }).then(data => {
+            console.log({ data });
         }).catch(error => {
             console.log(error);
         })
@@ -65,7 +66,7 @@ class Chat extends React.Component<Props, State> {
 
     //firestoreの更新を監視
     onLoadSnapShot = (room: string, no: string) => {
-        let doc = firebase
+        firebase
         .firestore()
         .collection("chat")
             .onSnapshot(snapshot => {

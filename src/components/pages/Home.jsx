@@ -1,8 +1,6 @@
 import * as React from 'react';
 import './../../App.css';
-import backImg from './../../assets/background.jpg';
 import { withRouter } from "react-router";
-import ImgMediaCard from './../molecules/Card';
 import Template from './../templates';
 import ImageBox from './../atoms/ImageBox';
 import Img from './../../assets/fanany.jpg';
