@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
-import firebase, { getFirebaseData, firestore } from './../../firebase';
+import { getFirebaseData, firestore } from './../../firebase';
 import theme from './../theme';
 import OutlineButton from '@material-ui/core/Button';
 import { css, StyleSheet } from 'aphrodite';
@@ -13,7 +13,7 @@ interface AddPersonProps {
 const getLastId = (arr: any[]) => {
     return arr.reduce((acm, c, i) => {
         let id = c.id;
-        return acm < c ? c : acm;
+        return acm < id ? id : acm;
     }, 0);
 }
 
@@ -29,7 +29,6 @@ const AddPersonInput = (props: AddPersonProps) => {
     const [image, setFile] = useState();
     const { personals, userData } = props;
     const addPerson = async () => {
-        const db = firebase.firestore();
         const id = getLastId(personals) + 1;
         const addData = {
             age: age,
