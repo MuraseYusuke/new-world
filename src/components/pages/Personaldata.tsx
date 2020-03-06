@@ -18,7 +18,17 @@ class PersonalData extends React.Component<Props, {}> {
     const {
       location,
     } = this.props;
-
+    const {
+      userData: {
+        image,
+        name,
+        age,
+        job,
+        visit,
+        description,
+        chartData,
+      }
+    } = location.state;
     return (
       <Template>
         <div
@@ -40,15 +50,20 @@ class PersonalData extends React.Component<Props, {}> {
                     margin: 8,
                   }}
                 >
-                  <img
-                    style={{
-                      width: "100%",
-                      maxHeight: "200px",
-                      objectFit: "contain"
-                    }}
-                    src={location.state.userData.image}
-                    alt={'userImg'}
-                  />
+                  {
+                    !!image ?
+                      <img
+                        style={{
+                          width: "100%",
+                          maxHeight: "200px",
+                          objectFit: "contain"
+                        }}
+                        src={image}
+                        alt={'userImg'}
+                      /> :
+                      <div>{'NO DATA'}</div>
+                  }
+
                 </div>
                 <div
                   style={{
@@ -63,7 +78,7 @@ class PersonalData extends React.Component<Props, {}> {
                     }}
                   >
                     {"名前："}
-                    {location.state.userData.name}
+                    {name}
                   </div>
                   <div
                     style={{
@@ -73,7 +88,7 @@ class PersonalData extends React.Component<Props, {}> {
                     }}
                   >
                     {"年齢："}
-                    {location.state.userData.age}
+                    {age}
                   </div>
                   <div
                     style={{
@@ -83,7 +98,7 @@ class PersonalData extends React.Component<Props, {}> {
                     }}
                   >
                     {"職業:"}：
-                  {location.state.userData.job}
+                  {job}
                   </div>
                   <div
                     style={{
@@ -93,7 +108,7 @@ class PersonalData extends React.Component<Props, {}> {
                     }}
                   >
                     {"住所:"}：
-                  {location.state.userData.visit}
+                  {visit}
                   </div>
                   <div
                     style={{
@@ -103,7 +118,7 @@ class PersonalData extends React.Component<Props, {}> {
                     }}
                   >
                     {"詳細："}
-                    {location.state.userData.description}
+                    {description}
                   </div>
                 </div>
               </div>
@@ -116,39 +131,39 @@ class PersonalData extends React.Component<Props, {}> {
             }}
           >
             {
-              location ?
-              <div
-                style={{
-                  display: "inline-block"
-                }}
-              >
-                <RadarChart
-                  height={300}
-                  width={300}
-                  cx="50%"
-                  cy="50%"
-                  data={location.state.userData.chartData}
+              chartData ?
+                <div
                   style={{
-                    backgroundColor: "white",
+                    display: "inline-block"
                   }}
-
                 >
-                  <PolarGrid />
-                  <PolarAngleAxis
-                    dataKey="rank"
-                  />
-                  <Radar
-                    name={location.state.userData.chartData.rank}
-                    dataKey="value"
-                    stroke="#8884d8"
-                    fill="#8884d8"
-                    fillOpacity={0.6}
-                  />
-                  <Tooltip />
-                </RadarChart>
-              </div>
-              :
-              null
+                  <RadarChart
+                    height={300}
+                    width={300}
+                    cx="50%"
+                    cy="50%"
+                    data={chartData}
+                    style={{
+                      backgroundColor: "white",
+                    }}
+
+                  >
+                    <PolarGrid />
+                    <PolarAngleAxis
+                      dataKey="rank"
+                    />
+                    <Radar
+                      name={chartData.rank}
+                      dataKey="value"
+                      stroke="#8884d8"
+                      fill="#8884d8"
+                      fillOpacity={0.6}
+                    />
+                    <Tooltip />
+                  </RadarChart>
+                </div>
+                :
+                null
             }
           </div>
         </div>
