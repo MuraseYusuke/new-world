@@ -11,6 +11,7 @@ const firebase = initializeApp({
 });
 
 export const firestore = firebase.firestore();
+export const fireStorage = firebase.storage();
 
 // firebaseのデータGET
 export async function getFirebaseData(collection, document){
