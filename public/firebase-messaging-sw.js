@@ -10,7 +10,7 @@ importScripts('https://www.gstatic.com/firebasejs/5.7.3/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/5.7.3/firebase-messaging.js');
 
 firebase.initializeApp({
-  'messagingSenderId': '651317443326'
+  'messagingSenderId': '182421295404'
 });
 
 // バックグラウンドメッセージを処理できるようにFirebase Messagingのインスタンスを取得します。
@@ -22,17 +22,44 @@ const messaging = firebase.messaging();
 // `notification` をサーバー側で設定しない場合はここで通知のtitle, bodyを組み立てることになる。
 // => Firebase Cloud Messaging（FCM）でより簡単にWebブラウザにPush通知を送るサンプル - DRYな備忘録
 //    http://otiai10.hatenablog.com/entry/2017/06/22/023025
-messaging.setBackgroundMessageHandler((payload) => {
-  console.log('[firebase-messaging-sw.js] Received background message ', payload);
-  // Customize notification here
-  const notificationTitle = 'Background Message Title';
-  const notificationOptions = {
-    title: 'push-test-web',
-    body: 'push-test-web: Background Message body',
-    icon: '/favicon.ico',
-    // icon: '/firebase-logo.png',
+
+// messaging.setBackgroundMessageHandler((payload) => {
+//   console.log('[firebase-messaging-sw.js] Received background message ', payload);
+//   // Customize notification here
+//   const notificationTitle = 'Background Message Title';
+//   const notificationOptions = {
+//     title: 'push-test-web',
+//     body: 'push-test-web: Background Message body',
+//     icon: '/favicon.ico',
+//     // icon: '/firebase-logo.png',
+//   };
+
+//   return self.registration.showNotification(notificationTitle,
+//     notificationOptions);
+// });
+
+messaging.setBackgroundMessageHandler(function(payload) {
+  console.log({payload});
+
+  var notificationTitle = 'test';
+  var notificationOptions = {
+    body: '新着メッセージがあります',
+    icon: "",
+  }
+
+  return self.registration.showNotification(
+    notificationTitle,
+    notificationOptions
+  );
+});
+
+self.addEventListener('push', function(event){
+  const title = 'TEST PUSH';
+  const options = {
+    body: 'new messaging',
+    icon: '',
+    badge: ''
   };
 
-  return self.registration.showNotification(notificationTitle,
-    notificationOptions);
+  event.waitUntil(self.registration.showNotification(title, options));
 });
