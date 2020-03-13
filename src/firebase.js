@@ -24,7 +24,6 @@ export async function getFirebaseData(collection, document){
 // ログイン情報GET
 export async function getFirebaseAuth(callback){
      await firebase.auth().onAuthStateChanged(userData => {
-        console.log(userData);
         callback(userData);
         return userData;
     });

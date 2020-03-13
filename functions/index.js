@@ -1,22 +1,34 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+const rp = require('request-promise');
 
-admin.initializeApp(functions.config().firebase);
+//firebase-adminの初期化
+admin.initializeApp();
 
-var fireStore = admin.firestore();
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
+exports.messagePush = functions.firestore
+    .document('chat/{room}')
+    .onUpdate((change, context) => {
+        const isDocument = !!change.after.exists;
+        const newDocument = change.after.data();
+        const oldDocument = change.before.data();
+        console.log({
+            isDocument,
+            newDocument,
+            oldDocument,
+        })
+        if(isDocument && newDocument.chatLog.length !== oldDocument.chatLog.length){
+            const chatLog = newDocument.chatLog;
+            const newChat = chatLog[chatLog.length - 1];
+            console.log({
+                newChat
+            });
+        }
 
-exports.update = functions.firestore.document('chat/GAIbg8pTLK7rD3hPVly6').onUpdate((snap, context) => {
-    const newValue = snap.after.data();
-    const previousValue = snap.before.data();
-    console.log({
-        test: "test",
-        newValue,
-        previousValue
     })
+
+
+//テスト用　Hello World
+exports.helloWorld = functions.https.onRequest((request, response) => {
+    response.send("Hello from Firebase!");
+
 });

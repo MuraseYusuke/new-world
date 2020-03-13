@@ -51,10 +51,6 @@ class Chat extends React.Component<Props, State> {
     //firestore にデータセットしに行く関数
     async setData(value: ChatValue[], addValue: ChatValue) {
         let room = this.props.location.state.docName;
-        console.log({
-            value,
-            addValue,
-        })
         const db = firebase.firestore();
         const docRef = db.collection("chat").doc(room);
         docRef.update({ chatLog: [...value, addValue] }).then(data => {

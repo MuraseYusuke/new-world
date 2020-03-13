@@ -43,12 +43,9 @@ const AddPersonInput = (props: AddPersonProps) => {
         if(!!userData){
             const docRef = firestore.collection('personal_data').doc(userData.email);
             const test = await getFirebaseData('personal_data', userData.email);
-            console.log({
-                test
-            });
             docRef.update({ personals: [...personals, addData] }).then((data) => {
                 alert("登録しました");
-    
+                console.log({test});
             }).catch(err => {
                 alert("登録に失敗しました");
             })
