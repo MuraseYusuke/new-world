@@ -12,7 +12,6 @@ const GrayLayer = (props) => {
                 width: "100%",
                 height: "100%",
                 backgroundColor: "rgba(0,0,0,0.7)",
-                overflow: "auto"
             }}
         >
             {props.children}

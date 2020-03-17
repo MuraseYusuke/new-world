@@ -13,6 +13,8 @@ import {
 import Paper from './../molecules/Paper';
 import firebase, { getFirebaseData } from './../../firebase';
 import theme from './../theme';
+import shortid from 'shortid';
+import { isEqual } from 'lodash';
 
 interface Props extends RouteComponentProps {
 }
@@ -24,9 +26,10 @@ interface State {
 }
 
 interface ChatValue {
-    uid: string | number,
-    name: string,
-    text: string,
+    id: string;
+    uid: string | number;
+    name: string;
+    text: string;
 }
 
 class Chat extends React.Component<Props, State> {
@@ -53,39 +56,44 @@ class Chat extends React.Component<Props, State> {
         let room = this.props.location.state.docName;
         const db = firebase.firestore();
         const docRef = db.collection("chat").doc(room);
-        docRef.update({ chatLog: [...value, addValue] }).then(data => {
-            console.log({ data });
+        docRef.update({ chatLog: [addValue, ...value] }).then(data => {
         }).catch(error => {
-            console.log(error);
         })
     }
 
     //firestoreの更新を監視
+    // onLoadSnapShot = (room: string, no: string) => {
+    //     firebase
+    //     .firestore()
+    //     .collection("chat")
+    //         .onSnapshot(snapshot => {
+    //             snapshot.docChanges().forEach(change => {
+    //                 let data = change.doc.data();
+    //                 console.log({ data });
+    //                 if(data.chatLog.length !== this.state.chatLog.length ){
+    //                     this.setState({ chatLog: data.chatLog });
+    //                 }
+
+    //             });
+    //         })
+    // }
     onLoadSnapShot = (room: string, no: string) => {
         firebase
         .firestore()
-        .collection("chat")
-            .onSnapshot(snapshot => {
-                snapshot.docChanges().forEach(change => {
-                    let data = change.doc.data();
-                    if(data.chatLog.length !== this.state.chatLog.length ){
-                        this.setState({ chatLog: data.chatLog });
-                    }
-
-                });
+        .collection('chat')
+        .onSnapshot(snapshot => {
+            console.log({ snapshot });
+            snapshot.docChanges().forEach(change => {
+                console.log({ change });
+                let data = change.doc.data();
+                console.log({ data });
+                if(!isEqual(data.chatLog, this.state.chatLog)){
+                    this.setState({
+                        chatLog: data.chatLog,
+                    })
+                }
             })
-    }
-
-    componentWillReceiveProps(nextProps: Props, nextState: State) {
-        if (nextState.chatLog.length !== this.state.chatLog.length) {
-            if (nextState.chatLog.length > this.state.chatLog.length) {
-                requestAnimationFrame(() => {
-                    if (!!this.scrollElement) {
-                        this.scrollElement.scrollTop = this.scrollElement.scrollHeight;
-                    }
-                })
-            }
-        }
+        })
     }
 
     componentDidMount() {
@@ -102,19 +110,22 @@ class Chat extends React.Component<Props, State> {
             text,
             userData
         } = this.state;
-
+        console.log({
+            render: chatLog
+        })
         return (
             <Template>
                 <div
                     style={{
                         height: '100vh',
                         width: '100vw',
+                        overflow: 'auto'
                     }}
                 >
                     <div
                         style={{
                             overflow: "auto",
-                            marginBottom: 80,
+                            marginBottom: 130,
                         }}
                         ref={elm => this.scrollElement = elm}
                     >
@@ -122,19 +133,21 @@ class Chat extends React.Component<Props, State> {
                             <List
                                 style={{
                                     maxHeight: "calc(100% - 210px)",
+                                    display: 'flex',
+                                    flexDirection: 'column-reverse',
                                 }}
                             >
                                 {
                                     chatLog && chatLog.map((d, index) => {
                                         return (
                                             <div
-                                                key={index}
                                                 style={{
                                                     color: "white",
                                                     marginRight: 8,
                                                     marginLeft: 8,
                                                     textAlign: (userData && d.uid === userData.uid) ? "right" : "left",
                                                 }}
+                                                key={`chat_${d.id}${index}`}
                                             >
                                                 <div
                                                     style={{
@@ -146,7 +159,13 @@ class Chat extends React.Component<Props, State> {
                                                     }}
                                                 >
                                                     <div style={{ fontSize: 10 }}>{d.name}</div>
-                                                    <div>{d.text}</div>
+                                                    <div
+                                                        style={{
+                                                            whiteSpace: 'normal',
+                                                            lineBreak: 'normal',
+                                                            wordWrap: 'break-word',
+                                                        }}
+                                                    >{d.text}</div>
                                                 </div>
                                             </div>
                                         );
@@ -189,11 +208,9 @@ class Chat extends React.Component<Props, State> {
                                 marginBottom: 8,
                             }}
                             onClick={() => {
-                                this.setData([...chatLog], { uid: userData.uid, name: userData.displayName, text });
-                                this.setState({
-                                    chatLog: [...chatLog, { uid: userData.uid, name: userData.displayName, text }],
-                                    text: "",
-                                });
+                                const id = shortid.generate();
+                                this.setData([...chatLog], { id, uid: userData.uid, name: userData.displayName, text });
+                                this.setState({ text: '' });
                             }}
                             disabled={!text}
                         >
