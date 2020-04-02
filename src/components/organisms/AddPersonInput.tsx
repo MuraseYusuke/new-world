@@ -148,8 +148,12 @@ const AddPersonInput = (props: AddPersonProps) => {
                 multiple={false}
                 onChange={(e) => {
                     console.log({ e });
-                    // setFile(e.target.files[0]);
+                    // const imageURL = createObjectURL(e.target.files[0]);
+                    // setFile(imageURL);
                 }}
+            />
+            <img 
+                src={file}
             />
             <Fab
                 onClick={() => {

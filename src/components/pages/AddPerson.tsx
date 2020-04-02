@@ -7,6 +7,9 @@ import ImgMediaCard from './../molecules/Card';
 import MenuFab from './../molecules/MenuFab';
 import styled from 'styled-components';
 import AddPersonInput from './../organisms/AddPersonInput';
+import {
+    Paper
+} from '@material-ui/core';
 
 interface Props extends RouteComponentProps {
 }
@@ -24,9 +27,16 @@ class AddPerson extends React.Component<Props, {}> {
         } = this.props;
         return (
             <Template>
+                <Paper
+                    style={{
+                        margin: 16,
+                        padding: 16,
+                    }}
+                >
                 <AddPersonInput
                     personals={location.state.personals}
                 />
+                </Paper>
             </Template>
 
         );

@@ -122,8 +122,14 @@ class PersonalData extends React.Component<Props, {}> {
           }
           <div
             style={{
-              color: "white",
-              margin: "0 auto"
+              backgroundColor: "white",
+              margin: "0 auto",
+              textAlign: "center",
+            }}
+          >
+          <div
+            style={{
+              display: "inline-block"
             }}
           >
             <RadarChart
@@ -146,6 +152,7 @@ class PersonalData extends React.Component<Props, {}> {
               />
               <Tooltip />
             </RadarChart>
+            </div>
           </div>
         </div>
       </Template>
