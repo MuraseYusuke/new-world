@@ -20,13 +20,14 @@ import {
   Chat as ChatIcon,
 } from '@material-ui/icons';
 import theme from './../theme';
-import firebase from '../../firebase';
+import { getFirebaseAuth } from '../../firebase';
 import { compose, defaultProps } from 'recompose';
 
 interface Props {
   title: string,
   buttonLabel: string,
   onMenuClick: () => void,
+  onProfileChange: () => void,
 }
 
 const AppBar = compose<Props, Props>(
@@ -46,9 +47,10 @@ const AppBar = compose<Props, Props>(
         open: false,
       }
     }
+    private avatarElement = React.createRef<HTMLDivElement>();
 
     componentDidMount() {
-      firebase.auth().onAuthStateChanged(userData => {
+      getFirebaseAuth((userData: any) => {
         this.setState({ userData });
       });
     }
@@ -57,6 +59,7 @@ const AppBar = compose<Props, Props>(
       const {
         title,
         onMenuClick,
+        onProfileChange,
       } = this.props;
       const {
         userData,
@@ -64,102 +67,117 @@ const AppBar = compose<Props, Props>(
       } = this.state;
 
       return (
-        <div>
-        <div
-          style={{
-            flexGrow: 1,
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            zIndex: 100
-          }}
-        >
-          <MAppBar
-            position="static"
+        <React.Fragment>
+          <div
             style={{
-              backgroundColor: theme.color.primaryColor,
+              flexGrow: 1,
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              zIndex: 100
             }}
           >
-            <Toolbar>
-              <IconButton
-                style={{
-                  cursor: "pointer"
-                }}
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                onClick={() => {
-                  console.log("MenuOpen");
-                  onMenuClick();
-                }}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography
-                variant="h6"
-                style={{
-                  flexGrow: 1,
-                }}
-              >
-                {title}
-              </Typography>
-              <IconButton
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                onClick={() => {
-                  alert("tst");
-                }}
-              >
-                <Badge
+            <MAppBar
+              position="static"
+              style={{
+                backgroundColor: theme.color.primaryColor,
+              }}
+            >
+              <Toolbar>
+                <IconButton
                   style={{
-                    margin: 4,
+                    cursor: "pointer"
                   }}
-                  color={"primary"}
-                  variant={"dot"}
-                  invisible={false}
+                  edge="start"
+                  color="inherit"
+                  aria-label="menu"
+                  onClick={() => {
+                    onMenuClick();
+                  }}
                 >
-                  <AlermIcon />
-                </Badge>
-              </IconButton>
-              <Button
-                color="inherit"
-                onClick={() => {
-                  this.setState({ open: true });
-                }}
-                disableRipple={true}
-              >
-                <Avatar alt="user profile" src={userData && userData.photoURL} />
-              </Button>
-              <Popover
-                open={open}
-                onClose={() => {
-                  this.setState({ open: false });
-                }}
-              >
-                  <List>
-                  <ListItemText primary={userData && userData.displayName} />
-                  <ListItemText primary={userData && userData.email} />
-                  <Divider />
-                  <ListItem
-                                button
-                                key={"test"}
-                                onClick={() => {
-                                }}
-                            >
-                                <ListItemIcon>
-                                <ChatIcon />
-                                </ListItemIcon>
-                                <ListItemText primary={"test"} />
-                            </ListItem>
+                  <MenuIcon />
+                </IconButton>
+                <Typography
+                  variant="h6"
+                  style={{
+                    flexGrow: 1,
+                  }}
+                >
+                  {title}
+                </Typography>
+                <IconButton
+                  edge="start"
+                  color="inherit"
+                  aria-label="menu"
+                  onClick={() => {
+                    alert("tst");
+                  }}
+                >
+                  <Badge
+                    style={{
+                      margin: 4,
+                    }}
+                    color={"primary"}
+                    variant={"dot"}
+                    invisible={false}
+                  >
+                    <AlermIcon />
+                  </Badge>
+                </IconButton>
+                <div
+                  ref={this.avatarElement}
+                >
+                  <Button
+                    color="inherit"
+                    onClick={() => {
+                      this.setState({ open: true });
+                    }}
+                    disableRipple={true}
+                  >
+                    <Avatar alt="user profile" src={userData && userData.photoURL} />
+                  </Button>
+                </div>
+                <Popover
+                  open={open}
+                  anchorEl={this.avatarElement.current}
+                  onClose={() => {
+                    this.setState({ open: false });
+                  }}
+                >
+                  <List
+                    style={{
+                      padding: 8,
+                      paddingLeft: 16,
+                      paddingRight: 16,
+                    }}
+                  >
+                    <ListItemText primary={userData && userData.displayName} />
+                    <ListItemText primary={userData && userData.email} />
+                    <Divider />
+                    <ListItem
+                      button
+                      key={"test"}
+                      onClick={() => {
+                      }}
+                    >
+                      <ListItemIcon>
+                        <ChatIcon />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={"アカウント設定"}
+                        onClick={() => {
+                          onProfileChange();
+                        }}
+                      />
+                    </ListItem>
                   </List>
-              </Popover>
-            </Toolbar>
-          </MAppBar>
-        </div>
-        <div style={{ width: "100%", height: 56 }} />
-        </div>
+                </Popover>
+              </Toolbar>
+            </MAppBar>
+          </div>
+          <div style={{ width: "100%", height: 56 }} />
+        </React.Fragment>
       );
     }
   }

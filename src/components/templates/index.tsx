@@ -17,9 +17,10 @@ import {
     MoveToInbox as InboxIcon,
     Subject as SubjectIcon,
     Home as HomeIcon,
+    ShowChart as ChartIcon,
     PersonOutline as OPerson
 } from '@material-ui/icons';
-import firebase from '../../firebase';
+import firebase, { getFirebaseAuth } from '../../firebase';
 import { withRouter, RouteComponentProps } from "react-router";
 import theme from './../theme';
 
@@ -43,6 +44,7 @@ enum IconType {
     Mail,
     Personal,
     LogOut,
+    ShowChart,
 }
 
 class Template extends React.Component<Props, State> {
@@ -54,10 +56,14 @@ class Template extends React.Component<Props, State> {
         }
     }
 
+    async getAuth() {
+        await getFirebaseAuth((data: any) => {
+            this.setState({ userData: data });
+        });
+    }
+
     componentDidMount() {
-        firebase.auth().onAuthStateChanged(userData => {
-            this.setState({ userData });
-        })
+        this.getAuth();
     }
 
     render() {
@@ -69,8 +75,6 @@ class Template extends React.Component<Props, State> {
             menuOpen,
             userData,
         } = this.state;
-
-        console.log(menuOpen);
 
         const ListItemList: ListItemListProps = {
             main: [
@@ -97,6 +101,14 @@ class Template extends React.Component<Props, State> {
                     onClick: () => {
                         history.push('/PersonalDataList');
                     }
+                },
+                {
+                    authType: ListAuthType.admin,
+                    title: 'ランキング',
+                    iconType: IconType.ShowChart,
+                    onClick: () => {
+                        history.push('/RankingList');
+                    }
                 }
             ],
             sub: [
@@ -116,11 +128,13 @@ class Template extends React.Component<Props, State> {
             <div
                 style={{
                     position: "relative",
-                    minHeight: "calc(100vh - 50px)",
-                    maxHeight: "calc(100vh - 50px)",
+                    height: '100vh',
+                    width: '100vw',
                     backgroundImage: `url(${backImg})`,
                     backgroundSize: "cover",
+                    backgroundAttachment: 'fixed',
                     fontFamily: theme.fontFamily,
+                    overflow: 'hidden'
                 }}
             >
                 <GrayLayer>
@@ -129,6 +143,9 @@ class Template extends React.Component<Props, State> {
                         buttonLabel={"ログアウト"}
                         onMenuClick={() => {
                             this.setState({ menuOpen: !menuOpen });
+                        }}
+                        onProfileChange={() => {
+                            history.push('/ChangeProfile');
                         }}
                     />
                     {children}
@@ -177,12 +194,16 @@ interface FullListProps {
 const FullList = (props: FullListProps) => {
     const {
         ListItemList,
-        userData,
     } = props;
 
     return (
-        <div>
-            <List>
+        <div
+            key={'full_list'}
+        >
+            <List
+                style={{
+                }}
+            >
                 {
                     ListItemList && ListItemList.main.map((item, index) => {
                         return (
@@ -209,7 +230,10 @@ const FullList = (props: FullListProps) => {
                 }
             </List>
             <Divider />
-            <List>
+            <List
+                style={{
+                }}
+            >
                 {
                     ListItemList && ListItemList.sub.map((item, index) => {
                         return (
@@ -262,8 +286,11 @@ const ListIcon = (props: ListIconProps) => {
                         );
                     case IconType.Personal:
                         return <OPerson />;
+                    case IconType.ShowChart:
+                        return <ChartIcon />
                     default:
                         return <SubjectIcon />;
+
                 }
             })()}
         </div>

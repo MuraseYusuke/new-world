@@ -57,7 +57,6 @@ class Test extends React.Component {
   }
 
   onAddClick() {
-    console.log(this.props.history);
     this.props.history.push("/ChangeProfile");
   }
 
@@ -180,7 +179,6 @@ class Test extends React.Component {
                 id="filled-basic"
                 margin="normal"
                 onChange={(e) => {
-                  console.log(e);
                 }}
               />
             </form>

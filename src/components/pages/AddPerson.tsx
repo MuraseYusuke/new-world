@@ -2,51 +2,49 @@ import * as React from 'react';
 import './../../App.css';
 import { withRouter, RouteComponentProps } from "react-router";
 import Template from './../templates';
-import firebase from './../../firebase';
-import ImgMediaCard from './../molecules/Card';
-import MenuFab from './../molecules/MenuFab';
-import styled from 'styled-components';
 import AddPersonInput from './../organisms/AddPersonInput';
-import {
-    Paper
-} from '@material-ui/core';
+import { getFirebaseAuth } from '../../firebase';
 
 interface Props extends RouteComponentProps {
 }
 
-class AddPerson extends React.Component<Props, {}> {
+class AddPerson extends React.Component<Props, {
+    userData: any
+}> {
     constructor(props: Props) {
         super(props);
         this.state = {
+            userData: undefined
         }
+    }
+
+    async getAuth(){
+        return await getFirebaseAuth((userData: any) => {
+            this.setState({ userData });
+        });
+    }
+
+    componentDidMount(){
+        this.getAuth();
     }
 
     render() {
         const {
             location
         } = this.props;
+        const {
+            userData
+        } = this.state;
         return (
             <Template>
-                <Paper
-                    style={{
-                        margin: 16,
-                        padding: 16,
-                    }}
-                >
                 <AddPersonInput
                     personals={location.state.personals}
+                    userData={userData}
                 />
-                </Paper>
             </Template>
 
         );
     }
 }
-
-const RoomContainer = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-`;
-
 
 export default withRouter(AddPerson);

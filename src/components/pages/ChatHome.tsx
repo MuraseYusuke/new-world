@@ -44,9 +44,6 @@ class ChatHome extends React.Component<Props, State> {
                 const userRef = db.collection("user_information").doc(`${this.state.userData.email}`);
                 let docs = await userRef.get();
                 let data = docs.data();
-                console.log({
-                    data
-                });
                 if (data) {
                     let chatAuth: string[] = data.chatAuth;
                     const chatRef = db.collection("chat");
@@ -85,6 +82,7 @@ class ChatHome extends React.Component<Props, State> {
                             onClick={() => {
                                 this.props.history.push({ pathname: "/Chat", state: { docName: d.id }})
                             }}
+                            key={`chat_card_${d.id}`}
                         />
                     ))
                 }

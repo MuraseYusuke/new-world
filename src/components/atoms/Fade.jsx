@@ -13,10 +13,6 @@ class FadeAnimation extends React.Component {
             children
         } = this.props;
 
-        console.log({
-            out 
-        })
-
         return (
             <Fade
                 out={out}
