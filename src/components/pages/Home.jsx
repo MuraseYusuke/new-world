@@ -7,15 +7,18 @@ import Img from './../../assets/fanany.jpg';
 import theme from './../theme';
 import ChatBabble from './../atoms/ChatBabble';
 import firebase from './../../firebase';
+import ImgMediaCard from './../molecules/Card';
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      userData: undefined,
+      chatRooms: [],
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     firebase.auth().onAuthStateChanged(userData => {
       this.setState({ userData }, async () => {
       });
@@ -55,8 +58,11 @@ class Home extends React.Component {
               }}
             />
           </div>
-          <ChatBabble 
-            label={"てすとだよ"}
+          <ChatBabble
+            label={"gggggggggggggggggggggggggggggggggggggggggggggggggggg"}
+              style={{
+                flexBasis: '70%'
+              }}
           />
         </div>
       </Template>

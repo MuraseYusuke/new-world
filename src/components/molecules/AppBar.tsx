@@ -22,9 +22,15 @@ import {
 import theme from './../theme';
 import { getFirebaseAuth } from '../../firebase';
 import { compose, defaultProps } from 'recompose';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = (theme: any) => ({
+  toolbar: theme.mixins.toolbar,
+})
 
 interface Props {
   title: string,
+  classes: any,
   buttonLabel: string,
   onMenuClick: () => void,
   onProfileChange: () => void,
@@ -58,6 +64,7 @@ const AppBar = compose<Props, Props>(
     render() {
       const {
         title,
+        classes,
         onMenuClick,
         onProfileChange,
       } = this.props;
@@ -79,7 +86,7 @@ const AppBar = compose<Props, Props>(
             }}
           >
             <MAppBar
-              position="static"
+              position="fixed"
               style={{
                 backgroundColor: theme.color.primaryColor,
               }}
@@ -176,11 +183,13 @@ const AppBar = compose<Props, Props>(
               </Toolbar>
             </MAppBar>
           </div>
-          <div style={{ width: "100%", height: 56 }} />
+          <div 
+          className={classes.toolbar}
+          />
         </React.Fragment>
       );
     }
   }
 );
 
-export default AppBar;
+export default withStyles(styles)(AppBar);

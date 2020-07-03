@@ -54,7 +54,7 @@ class MenuFab extends React.Component {
                     style={{
                         position: "absolute",
                         bottom: 6,
-                        right: 106,
+                        right: 84,
                         backgroundColor: "rgba(107, 255, 205, 0.3)",
                         border: "2px solid white",
                         opacity: open ? 1 : 0,
@@ -73,8 +73,8 @@ class MenuFab extends React.Component {
                     size={"small"}
                     style={{
                         position: "absolute",
-                        bottom: 54,
-                        right: 107,
+                        bottom: 52,
+                        right: 87,
                         backgroundColor: "rgba(107, 255, 205, 0.3)",
                         border: "2px solid white",
                         opacity: open ? 1 : 0,
@@ -95,7 +95,7 @@ class MenuFab extends React.Component {
                     style={{
                         position: "absolute",
                         bottom: 85,
-                        right: 68,
+                        right: 51,
                         backgroundColor: "rgba(107, 255, 205, 0.3)",
                         border: "2px solid white",
                         opacity: open ? 1 : 0,
@@ -114,8 +114,8 @@ class MenuFab extends React.Component {
                     size={"small"}
                     style={{
                         position: "absolute",
-                        bottom: 74,
-                        right: 22,
+                        bottom: 80,
+                        right: 4,
                         backgroundColor: "rgba(107, 255, 205, 0.3)",
                         border: "2px solid white",
                         opacity: open ? 1 : 0,
