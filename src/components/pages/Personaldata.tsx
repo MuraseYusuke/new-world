@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './../../App.css';
-import Template from './../templates';
+import Template from '../templates';
 import { withRouter, RouteComponentProps } from "react-router";
 import { RadarChart, PolarGrid, PolarAngleAxis, Radar, Tooltip } from 'recharts';
 
