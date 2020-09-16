@@ -32,6 +32,11 @@ const onChange = (event: React.ChangeEvent<HTMLInputElement>, cb: (e: React.Chan
     cb(event);
     if (!!event.target.files && event.target.files.length > 0) {
         const imgURL = window.URL.createObjectURL(event.target.files[0]);
+        console.log({
+            file: event.target.files,
+            imgURL
+        })
+
         setFile(imgURL);
     }
 }

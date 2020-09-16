@@ -120,56 +120,17 @@ class PersonalData extends React.Component<Props, {}> {
                     {"詳細："}
                     {description}
                   </div>
+                  <div>
+                  </div>
                 </div>
               </div>
               :
               null
           }
-          <div
-            style={{
-              textAlign: "center"
-            }}
-          >
-            {
-              chartData ?
-                <div
-                  style={{
-                    display: "inline-block"
-                  }}
-                >
-                  <RadarChart
-                    height={300}
-                    width={300}
-                    cx="50%"
-                    cy="50%"
-                    data={chartData}
-                    style={{
-                      backgroundColor: "white",
-                    }}
-
-                  >
-                    <PolarGrid />
-                    <PolarAngleAxis
-                      dataKey="rank"
-                    />
-                    <Radar
-                      name={chartData.rank}
-                      dataKey="value"
-                      stroke="#8884d8"
-                      fill="#8884d8"
-                      fillOpacity={0.6}
-                    />
-                    <Tooltip />
-                  </RadarChart>
-                </div>
-                :
-                null
-            }
-          </div>
         </div>
       </Template>
     );
   }
 };
 
-export default withRouter(PersonalData);
+export default PersonalData;

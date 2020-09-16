@@ -13,7 +13,7 @@ class NotFound extends React.Component{
     }
 }
 
-export default withRouter(NotFound);
+export default NotFound;
 
 const PageLayout = styled.div`
     font-size: 100px;

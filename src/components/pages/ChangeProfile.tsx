@@ -24,8 +24,9 @@ interface Props extends RouteComponentProps, WithStyles<typeof styles> {
 }
 
 interface State {
-    userData: any
+    userData: any;
     file: string;
+    edit: boolean;
 }
 
 class ChangeProfile extends React.Component<Props, State>{
@@ -34,6 +35,7 @@ class ChangeProfile extends React.Component<Props, State>{
         this.state = {
             userData: undefined,
             file: '',
+            edit: false
         }
     }
     componentDidMount() {
@@ -48,6 +50,7 @@ class ChangeProfile extends React.Component<Props, State>{
         } = this.props;
         const {
             file,
+            edit,
         } = this.state;
         return (
             <Template>
@@ -57,42 +60,75 @@ class ChangeProfile extends React.Component<Props, State>{
                         boxSizing: 'border-box',
                     }}
                 >
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            padding: 16,
-                            margin: 8,
-                            backgroundColor: theme.color.saveBackgroundColor,
-                            width: '100%',
-                            border: `1px solid ${theme.color.pureColor}`,
-                            borderRadius: 10,
-                        }}
-                    >
-                        <PreviewInputFile
-                            type={'file'}
-                            accept={'image/'}
-                            onChange={() => {
-                            }}
-                            defaultValue={file}
-                        />
-                        <TextField
-                            id={'lastName'}
-                            inputProps={{
-                                className: classes.textField
-                            }}
-                            label={'姓'}
-                            helperText={'登録する姓を入力してください'}
-                        />
-                        <TexField
-                            id={'firstName'}
-                            className={
-                                classes.textField
-                            }
-                            label={'名'}
-                            helperText={'登録する名を入力してください'}
-                        />
-                    </div>
+                    {
+                        edit ?
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    padding: 16,
+                                    margin: 8,
+                                    backgroundColor: theme.color.saveBackgroundColor,
+                                    width: '100%',
+                                    border: `1px solid ${theme.color.pureColor}`,
+                                    borderRadius: 10,
+                                }}
+                            >
+                                <PreviewInputFile
+                                    type={'file'}
+                                    accept={'image/'}
+                                    onChange={() => {
+                                    }}
+                                    defaultValue={file}
+                                />
+                                <TextField
+                                    id={'lastName'}
+                                    inputProps={{
+                                        className: classes.textField
+                                    }}
+                                    label={'姓'}
+                                    helperText={'登録する姓を入力してください'}
+                                />
+                                <TexField
+                                    id={'firstName'}
+                                    className={
+                                        classes.textField
+                                    }
+                                    label={'名'}
+                                    helperText={'登録する名を入力してください'}
+                                />
+                            </div>
+                            :
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    padding: 16,
+                                    margin: 8,
+                                    backgroundColor: theme.color.saveBackgroundColor,
+                                    width: '100%',
+                                    border: `1px solid ${theme.color.pureColor}`,
+                                    borderRadius: 10,
+                                }}
+                            ></div>
+                    }
+                    {
+                        // <div
+                        //     style={{
+                        //         display: 'flex',
+                        //         justifyContent: 'center',
+                        //         padding: 16,
+                        //         margin: 8,
+                        //         width: '100%',
+                        //         border: `1px solid ${theme.color.pureColor}`,
+                        //         borderRadius: 10,
+                        //         color: theme.color.pureColor,
+                        //     }}
+                        //     onClick={() => {
+                        //         this.setState({ edit: !edit });
+                        //     }}
+                        // >{edit ? '保存する' : '編集する'}</div>
+                    }
                 </div>
             </Template>
         )
@@ -100,6 +136,5 @@ class ChangeProfile extends React.Component<Props, State>{
 }
 
 export default compose<Props, Props>(
-    withRouter,
     withStyles(styles),
 )(ChangeProfile);

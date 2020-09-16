@@ -194,4 +194,4 @@ class Test extends React.Component {
 
 
 
-export default withRouter(Test);
+export default Test;

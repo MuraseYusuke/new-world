@@ -111,4 +111,4 @@ class PersonalDataList extends React.Component<Props, State> {
   }
 };
 
-export default withRouter(PersonalDataList);
+export default PersonalDataList;

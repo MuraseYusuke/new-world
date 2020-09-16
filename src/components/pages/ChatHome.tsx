@@ -100,4 +100,4 @@ const RoomContainer = styled.div`
 `;
 
 
-export default withRouter(ChatHome);
+export default ChatHome;

@@ -7,6 +7,11 @@ const theme = {
         saveBackgroundColor: '#008080',
         saveTextColor: '#00b7ce'
     },
+    size: {
+        small: 14,
+        medium: 16,
+        large: 18,
+    },
     fontFamily: 'Kosugi, sans-serif',
 };
 

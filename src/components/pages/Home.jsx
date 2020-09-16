@@ -1,13 +1,13 @@
 import * as React from 'react';
 import './../../App.css';
 import { withRouter } from "react-router";
-import Template from './../templates';
-import ImageBox from './../atoms/ImageBox';
+import Template from '../templates';
+import ImageBox from '../atoms/ImageBox';
 import Img from './../../assets/fanany.jpg';
-import theme from './../theme';
-import ChatBabble from './../atoms/ChatBabble';
-import firebase from './../../firebase';
-import ImgMediaCard from './../molecules/Card';
+import theme from '../theme';
+import ChatBabble from '../atoms/ChatBabble';
+import firebase from '../../firebase';
+import ImgMediaCard from '../molecules/Card';
 
 class Home extends React.Component {
   constructor(props) {
@@ -32,6 +32,7 @@ class Home extends React.Component {
         <div
           style={{
             display: "flex",
+            alignItems: 'baseline',
           }}
         >
           <div
@@ -72,4 +73,4 @@ class Home extends React.Component {
 
 
 
-export default withRouter(Home);
+export default Home;

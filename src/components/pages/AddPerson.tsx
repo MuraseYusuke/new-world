@@ -47,4 +47,4 @@ class AddPerson extends React.Component<Props, {
     }
 }
 
-export default withRouter(AddPerson);
+export default AddPerson;

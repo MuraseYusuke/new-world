@@ -44,4 +44,4 @@ class RankingList extends React.Component {
 
 
 
-export default withRouter(RankingList);
+export default RankingList;

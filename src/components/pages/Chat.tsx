@@ -224,4 +224,4 @@ class Chat extends React.Component<Props, State> {
 }
 
 
-export default withRouter(Chat);
+export default Chat;

@@ -32,4 +32,4 @@ class Ranking extends React.Component {
 
 
 
-export default withRouter(Ranking);
+export default Ranking;
