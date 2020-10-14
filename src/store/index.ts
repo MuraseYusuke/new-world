@@ -1,12 +1,28 @@
 import * as home from './home';
+import { reducerWithInitialState } from 'typescript-fsa-reducers';
+import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
+import thunk from 'redux-thunk';
 
 export interface ApplicationState {
   home: home.HomeState
 };
+// export type ApplicationStaate = { state: State };
 
-export const reducers = {
-  home: home.reducer,
-};
+const storeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+//ここに各画面のstoreを追加していく
+// const Reducer = () => (
+//   reducerWithInitialState({
+//   home: home.initialState
+// } as ApplicationState)
+// );
+
+const store = createStore(
+  combineReducers({
+    home: home.reducer
+  }),
+  storeEnhancers(applyMiddleware(thunk))
+);
 
 export interface ThunkDispatch<
   TBasicAction,
@@ -30,3 +46,5 @@ export interface ThunkDispatch<
 export interface AppThunkAction<TAction, TReturnType = void, TExtraThunkArg = never> {
     (dispatch: ThunkDispatch<TAction, TExtraThunkArg>, getState: () => ApplicationState, extraArguments?: TExtraThunkArg): TReturnType;
 };
+
+export default store;
