@@ -12,6 +12,7 @@ import AddPerson from './components/pages/AddPerson';
 import NotFound from './components/pages/NotFound';
 import Ranking from './components/pages/Ranking';
 import RankingList from './components/pages/RankingList';
+import BadCar from './components/pages/BadCar';
 
 
 export class Routes extends React.Component {
@@ -30,6 +31,7 @@ export class Routes extends React.Component {
                     <Route exact path="/AddPerson" component={AddPerson} />
                     <Route exact path="/RankingList" component={RankingList} />
                     <Route exact path="/Ranking" component={Ranking} />
+                    <Route exact path="/BadCar" component={BadCar} />
                     <Route exact component={NotFound} />
                 </Switch>
             </BrowserRouter>
